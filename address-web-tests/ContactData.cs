@@ -9,12 +9,14 @@ namespace WebAddressbookTests
     internal class ContactData
     {
         private string firstname;
+        private string lastname;
         private string middlename = "";
         private string homePhoneNumber = "";
 
-        public ContactData(string firstname)
+        public ContactData(string firstname, string lastname)
         {
             this.firstname = firstname;
+            this.lastname = lastname;
         }
 
         public string Firstname
@@ -26,6 +28,18 @@ namespace WebAddressbookTests
             set
             {
                 this.firstname = value;
+            }
+        }
+
+        public string Lastname
+        {
+            get
+            {
+                return this.lastname;
+            }
+            set
+            {
+                this.lastname = value;
             }
         }
 
