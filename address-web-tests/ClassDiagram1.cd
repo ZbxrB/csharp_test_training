@@ -29,14 +29,14 @@
   <Class Name="WebAddressbookTests.GroupCreationTests">
     <Position X="2.75" Y="6.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <HashCode>AAAAAAgAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>tests\GroupCreationTests.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="WebAddressbookTests.HelperBase" Collapsed="true">
     <Position X="6.5" Y="0.75" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAAAAAAACAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAACEAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>appmanager\HelperBase.cs</FileName>
     </TypeIdentifier>
   </Class>
@@ -51,7 +51,7 @@
       </Path>
     </InheritanceLine>
     <TypeIdentifier>
-      <HashCode>AAACAAAAAABAAAAAAAAAAAAAAAABEAAAAAAAAABAAAA=</HashCode>
+      <HashCode>AAACAAAAAABAAAAAAAAAAAAAAAABEEAAAAAAAABAAAA=</HashCode>
       <FileName>appmanager\GroupHelper.cs</FileName>
     </TypeIdentifier>
   </Class>
@@ -79,6 +79,13 @@
   </Class>
   <Class Name="WebAddressbookTests.ApplicationManager" Collapsed="true">
     <Position X="6.5" Y="4.5" Width="1.5" />
+    <AssociationLine Name="loginHelper" Type="WebAddressbookTests.LoginHelper" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="8" Y="4.75" />
+        <Point X="9.375" Y="4.75" />
+        <Point X="9.375" Y="3.191" />
+      </Path>
+    </AssociationLine>
     <AssociationLine Name="groupHelper" Type="WebAddressbookTests.GroupHelper" FixedFromPoint="true" FixedToPoint="true">
       <Path>
         <Point X="6.5" Y="4.75" />
@@ -92,21 +99,14 @@
         <Point X="7.25" Y="3.191" />
       </Path>
     </AssociationLine>
-    <AssociationLine Name="loginHelper" Type="WebAddressbookTests.LoginHelper" FixedFromPoint="true" FixedToPoint="true">
-      <Path>
-        <Point X="8" Y="4.75" />
-        <Point X="9.375" Y="4.75" />
-        <Point X="9.375" Y="3.191" />
-      </Path>
-    </AssociationLine>
     <TypeIdentifier>
-      <HashCode>AAAAAEAABAAAAAAAAAAAAASAAAAAAAAAIBAAABEAACA=</HashCode>
+      <HashCode>AAAAAEAABAAAAAAAAAAAAASAAAAAgAAAIBAAABEAACA=</HashCode>
       <FileName>appmanager\ApplicationManager.cs</FileName>
     </TypeIdentifier>
     <ShowAsAssociation>
+      <Field Name="loginHelper" />
       <Field Name="groupHelper" />
       <Field Name="navigationHelper" />
-      <Field Name="loginHelper" />
     </ShowAsAssociation>
   </Class>
   <Font Name="Segoe UI" Size="9" />
