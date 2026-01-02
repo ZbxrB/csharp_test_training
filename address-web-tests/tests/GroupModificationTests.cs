@@ -13,10 +13,10 @@ namespace WebAddressbookTests
         [Test]
         public void GroupModificationTest()
         {
-            GroupData newData = new GroupData("task5 modified")
+            GroupData newData = new GroupData("task7 modified")
             {
-               GroupHeader = "task5 modified",
-               GroupFooter = "task5 modified"
+               GroupHeader = "task7 modified",
+               GroupFooter = "task7 modified"
             };
             applicationManager.Groups.Modify(1, newData);
 

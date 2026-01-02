@@ -16,9 +16,9 @@ namespace WebAddressbookTests
         [Test]
         public void ContactCreationTest()
         {
-            ContactData contact = new ContactData("task5", "task5")
+            ContactData contact = new ContactData("task7", "task7")
             {
-                Middlename = "task5",
+                Middlename = "task7",
                 HomePhoneNumber = "12345"
             };
 
