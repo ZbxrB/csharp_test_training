@@ -51,7 +51,7 @@
       </Path>
     </InheritanceLine>
     <TypeIdentifier>
-      <HashCode>AAACAAAAAABAAAAAAAAAAAAAAAABEEAAAAAAAABAAAA=</HashCode>
+      <HashCode>AAACIACAAABAAAAAAAAABAAAQAABEEAAAAAAAABAAAA=</HashCode>
       <FileName>appmanager\GroupHelper.cs</FileName>
     </TypeIdentifier>
   </Class>
@@ -100,7 +100,7 @@
       </Path>
     </AssociationLine>
     <TypeIdentifier>
-      <HashCode>AAAAAEAABAAAAAAAAAAAAASAAAAAgAAAIBAAABEAACA=</HashCode>
+      <HashCode>BAAAAEAABAAAAAAAAAAAAASAAAAAgAAAIBCAABEAACA=</HashCode>
       <FileName>appmanager\ApplicationManager.cs</FileName>
     </TypeIdentifier>
     <ShowAsAssociation>
