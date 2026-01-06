@@ -15,8 +15,8 @@ namespace WebAddressbookTests
         {
             GroupData newData = new GroupData("task7 modified")
             {
-               GroupHeader = "task7 modified",
-               GroupFooter = "task7 modified"
+               GroupHeader = null,
+               GroupFooter = null
             };
             applicationManager.Groups.Modify(1, newData);
 
