@@ -17,7 +17,6 @@ namespace WebAddressbookTests
         {
         }
 
-
         public GroupHelper Create(GroupData group)
         {
             manager.Navigator.GoToGroupsPage();

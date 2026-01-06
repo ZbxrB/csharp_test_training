@@ -19,7 +19,6 @@ namespace WebAddressbookTests
             };
 
             applicationManager.Groups.Create(group);
-            applicationManager.Auth.Logout();
         }
 
         [Test]
@@ -32,7 +31,6 @@ namespace WebAddressbookTests
             };
 
             applicationManager.Groups.Create(group);
-            applicationManager.Auth.Logout();
         }
     }
 }
