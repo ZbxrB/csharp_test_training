@@ -13,7 +13,7 @@ namespace WebAddressbookTests
         [Test]
         public void GroupModificationTest()
         {
-            GroupData newData = new GroupData("task7 modified")
+            GroupData newData = new GroupData("modified " + DateTime.Now.ToString("dd-MM-yyyy HH:mm:ss"))
             {
                GroupHeader = null,
                GroupFooter = null

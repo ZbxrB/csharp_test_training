@@ -7,12 +7,12 @@ using NUnit.Framework;
 
 namespace WebAddressbookTests
 {
-    public class ContactModificationTests : TestBase
+    public class ContactModificationTests : AuthTestBase
     {
         [Test]
         public void ContactModificationTest()
         {
-            ContactData newData = new ContactData("modified firstname", "modified lastname")
+            ContactData newData = new ContactData("modified " + DateTime.Now.ToString("dd-MM-yyyy HH:mm:ss"), "modified lastname")
             {
                 HomePhoneNumber = "modified number",
                 Middlename = "modified middlename"

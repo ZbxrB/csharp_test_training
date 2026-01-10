@@ -32,6 +32,11 @@ namespace WebAddressbookTests
         {
             manager.Navigator.GoToGroupsPage();
 
+            if (VerifyingGroupExistence() == false)
+            {
+                CreateDefaultGroup();
+            }
+
             SelectGroup(index);
             RemoveGroup();
 
@@ -42,6 +47,12 @@ namespace WebAddressbookTests
         public GroupHelper Modify(int index, GroupData newData)
         {
             manager.Navigator.GoToGroupsPage();
+
+            if (VerifyingGroupExistence() == false)
+            {
+                CreateDefaultGroup();
+            }
+
             SelectGroup(index);
             InitGroupModification();
             FillGroupForm(newData);
@@ -49,6 +60,20 @@ namespace WebAddressbookTests
             manager.Navigator.GoToGroupsPage();
 
             return this;
+        }
+
+        public GroupHelper CreateDefaultGroup()
+        {
+            GroupData defaultGroup = new GroupData("default group name");
+            Create(defaultGroup);
+
+            return this;
+        }
+
+        public bool VerifyingGroupExistence()
+        {
+            return IsElementPresent(By.ClassName("group"))
+                    && IsElementPresent(By.Name("selected[]"));
         }
 
         public GroupHelper SubmitGroupModification()
@@ -91,14 +116,10 @@ namespace WebAddressbookTests
             return this;
         }
 
-
-
         public GroupHelper SubmitGroupCreation()
         {
             driver.FindElement(By.Name("submit")).Click();
             return this;
         }
-
-
     }
 }
