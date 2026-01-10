@@ -30,34 +30,18 @@ namespace WebAddressbookTests
 
         public GroupHelper Remove(int index)
         {
-            manager.Navigator.GoToGroupsPage();
-
-            if (VerifyingGroupExistence() == false)
-            {
-                CreateDefaultGroup();
-            }
-
             SelectGroup(index);
             RemoveGroup();
 
-            manager.Navigator.GoToGroupsPage();
             return this;
         }
 
         public GroupHelper Modify(int index, GroupData newData)
         {
-            manager.Navigator.GoToGroupsPage();
-
-            if (VerifyingGroupExistence() == false)
-            {
-                CreateDefaultGroup();
-            }
-
             SelectGroup(index);
             InitGroupModification();
             FillGroupForm(newData);
             SubmitGroupModification();
-            manager.Navigator.GoToGroupsPage();
 
             return this;
         }

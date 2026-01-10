@@ -18,8 +18,16 @@ namespace WebAddressbookTests
                GroupHeader = null,
                GroupFooter = null
             };
-            applicationManager.Groups.Modify(1, newData);
 
+            applicationManager.Navigator.GoToGroupsPage();
+
+            if (applicationManager.Groups.VerifyingGroupExistence() == false)
+            {
+                applicationManager.Groups.CreateDefaultGroup();
+            }
+
+            applicationManager.Groups.Modify(1, newData);
+            applicationManager.Navigator.GoToGroupsPage();
         }
     }
 }

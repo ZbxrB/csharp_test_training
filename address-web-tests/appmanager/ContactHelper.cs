@@ -30,13 +30,6 @@ namespace WebAddressbookTests
 
         public ContactHelper Remove(int index)
         {
-            manager.Navigator.GoToHomePage();
-
-            if (VerifyingContactExistence() == false)
-            {
-                CreateDefaultContact();
-            }
-
             SelectContact(index);
             RemoveContact();
             manager.Navigator.GoToHomePage();
@@ -45,13 +38,6 @@ namespace WebAddressbookTests
 
         public ContactHelper Modify(int index, ContactData newData)
         {
-            manager.Navigator.GoToHomePage();
-
-            if (VerifyingContactExistence() == false)
-            {
-                CreateDefaultContact();
-            }
-
             GoToModifyingForm(index);
             FillContactForm(newData);
             SubmitContactModification();
@@ -59,13 +45,13 @@ namespace WebAddressbookTests
             return this;
         }
 
-        private bool VerifyingContactExistence()
+        public bool VerifyingContactExistence()
         {
             return IsElementPresent(By.Name("entry"))
                 && IsElementPresent(By.ClassName("center"));
         }
 
-        private ContactHelper CreateDefaultContact()
+        public ContactHelper CreateDefaultContact()
         {
 
             ContactData defaultContact = new ContactData("default firstname", "default lastname");

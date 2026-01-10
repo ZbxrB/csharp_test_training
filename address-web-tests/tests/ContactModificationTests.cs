@@ -20,7 +20,15 @@ namespace WebAddressbookTests
 
             int index = 2;
 
+            applicationManager.Navigator.GoToHomePage();
+
+            if (applicationManager.Contacts.VerifyingContactExistence() == false)
+            {
+                applicationManager.Contacts.CreateDefaultContact();
+            }
+
             applicationManager.Contacts.Modify(index, newData);
+            applicationManager.Navigator.GoToHomePage();
         }
     }
 }

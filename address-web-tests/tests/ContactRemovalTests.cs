@@ -13,7 +13,15 @@ namespace WebAddressbookTests
 
         public void ContactRemovalTest()
         {
+            applicationManager.Navigator.GoToHomePage();
+
+            if (applicationManager.Contacts.VerifyingContactExistence() == false)
+            {
+                applicationManager.Contacts.CreateDefaultContact();
+            }
+
             applicationManager.Contacts.Remove(2);
+            applicationManager.Navigator.GoToHomePage();
         }
 
     }
