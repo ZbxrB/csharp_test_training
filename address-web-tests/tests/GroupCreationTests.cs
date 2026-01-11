@@ -3,6 +3,7 @@ using System;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading;
+using System.Collections.Generic;
 
 namespace WebAddressbookTests
 {
@@ -18,7 +19,11 @@ namespace WebAddressbookTests
                 GroupFooter = "task7"
             };
 
+            List<GroupData> oldGroups = applicationManager.Groups.GetGroupList();
             applicationManager.Groups.Create(group);
+            List<GroupData> newGroups =  applicationManager.Groups.GetGroupList();
+            Assert.AreEqual(oldGroups.Count + 1, newGroups.Count);
+
         }
 
         [Test]
@@ -30,7 +35,25 @@ namespace WebAddressbookTests
                 GroupFooter = ""
             };
 
+            List<GroupData> oldGroups = applicationManager.Groups.GetGroupList();
             applicationManager.Groups.Create(group);
+            List<GroupData> newGroups = applicationManager.Groups.GetGroupList();
+            Assert.AreEqual(oldGroups.Count + 1, newGroups.Count);
+        }
+
+        [Test]
+        public void BadNameGroupCreationTest()
+        {
+            GroupData group = new GroupData("a'a")
+            {
+                GroupHeader = "",
+                GroupFooter = ""
+            };
+
+            List<GroupData> oldGroups = applicationManager.Groups.GetGroupList();
+            applicationManager.Groups.Create(group);
+            List<GroupData> newGroups = applicationManager.Groups.GetGroupList();
+            Assert.AreEqual(oldGroups.Count + 1, newGroups.Count);
         }
     }
 }
