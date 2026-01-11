@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace WebAddressbookTests
 {
-    public class GroupData : IEquatable<GroupData>
+    public class GroupData : IEquatable<GroupData>, IComparable<GroupData>
     {
         private string groupName;
         private string groupHeader = "";
@@ -32,10 +32,26 @@ namespace WebAddressbookTests
             return groupName == other.groupName;
         }
 
-        public int GetHashCode()
+        public override int GetHashCode()
         {
             return groupName.GetHashCode();
         }
+
+        // возвращает строковое представление экземпляра класса GroupData
+        public override string ToString()
+        {
+            return "name = " + groupName;
+        }
+
+        public int CompareTo(GroupData other)
+        {
+            if (other is null)
+            {
+                return 1;
+            }
+            return groupName.CompareTo(other.groupName);
+        }
+
 
         public string GroupName
         {

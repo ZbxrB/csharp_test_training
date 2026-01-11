@@ -19,6 +19,7 @@ namespace WebAddressbookTests
                GroupFooter = null
             };
 
+            int index = 0;
             applicationManager.Navigator.GoToGroupsPage();
 
             if (applicationManager.Groups.VerifyingGroupExistence() == false)
@@ -26,7 +27,13 @@ namespace WebAddressbookTests
                 applicationManager.Groups.CreateDefaultGroup();
             }
 
-            applicationManager.Groups.Modify(0, newData);
+            List<GroupData> oldGroups = applicationManager.Groups.GetGroupList();
+            applicationManager.Groups.Modify(index, newData);
+            List<GroupData> newGroups = applicationManager.Groups.GetGroupList();
+            oldGroups[index].GroupName = newData.GroupName;
+            oldGroups.Sort();
+            newGroups.Sort();
+            Assert.AreEqual(oldGroups, newGroups);
             applicationManager.Navigator.GoToGroupsPage();
         }
     }
