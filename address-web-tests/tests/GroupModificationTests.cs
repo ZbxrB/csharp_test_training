@@ -26,7 +26,7 @@ namespace WebAddressbookTests
                 applicationManager.Groups.CreateDefaultGroup();
             }
 
-            applicationManager.Groups.Modify(1, newData);
+            applicationManager.Groups.Modify(0, newData);
             applicationManager.Navigator.GoToGroupsPage();
         }
     }

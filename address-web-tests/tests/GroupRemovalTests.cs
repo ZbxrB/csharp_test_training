@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading;
@@ -9,17 +10,33 @@ namespace WebAddressbookTests
     [TestFixture]
     public class GroupRemovalTests : AuthTestBase
     {
+        //[Test]
+        //public void GroupRemovalTest()
+        //{
+        //    applicationManager.Navigator.GoToGroupsPage();
+
+        //    if (applicationManager.Groups.VerifyingGroupExistence() == false)
+        //    {
+        //        applicationManager.Groups.CreateDefaultGroup();
+        //    }
+
+        //    applicationManager.Groups.Remove(1);
+        //}
+
         [Test]
         public void GroupRemovalTest()
         {
+            int index = 0;
+
             applicationManager.Navigator.GoToGroupsPage();
+            List<GroupData> oldGroups = applicationManager.Groups.GetGroupList();
 
-            if (applicationManager.Groups.VerifyingGroupExistence() == false)
-            {
-                applicationManager.Groups.CreateDefaultGroup();
-            }
+            applicationManager.Groups.Remove(index);
 
-            applicationManager.Groups.Remove(1);
+            List<GroupData> newGroups = applicationManager.Groups.GetGroupList();
+
+            oldGroups.RemoveAt(index);
+            Assert.AreEqual(oldGroups, newGroups);
         }
     }
 }

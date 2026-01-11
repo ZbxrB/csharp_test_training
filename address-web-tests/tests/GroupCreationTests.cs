@@ -18,12 +18,11 @@ namespace WebAddressbookTests
                 GroupHeader = "task7",
                 GroupFooter = "task7"
             };
-
+            applicationManager.Navigator.GoToGroupsPage();
             List<GroupData> oldGroups = applicationManager.Groups.GetGroupList();
             applicationManager.Groups.Create(group);
             List<GroupData> newGroups =  applicationManager.Groups.GetGroupList();
             Assert.AreEqual(oldGroups.Count + 1, newGroups.Count);
-
         }
 
         [Test]
@@ -34,7 +33,7 @@ namespace WebAddressbookTests
                 GroupHeader = "",
                 GroupFooter = ""
             };
-
+            applicationManager.Navigator.GoToGroupsPage();
             List<GroupData> oldGroups = applicationManager.Groups.GetGroupList();
             applicationManager.Groups.Create(group);
             List<GroupData> newGroups = applicationManager.Groups.GetGroupList();
@@ -49,7 +48,7 @@ namespace WebAddressbookTests
                 GroupHeader = "",
                 GroupFooter = ""
             };
-
+            applicationManager.Navigator.GoToGroupsPage();
             List<GroupData> oldGroups = applicationManager.Groups.GetGroupList();
             applicationManager.Groups.Create(group);
             List<GroupData> newGroups = applicationManager.Groups.GetGroupList();
