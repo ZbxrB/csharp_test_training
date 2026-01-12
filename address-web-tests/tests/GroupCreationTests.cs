@@ -13,10 +13,10 @@ namespace WebAddressbookTests
         [Test]
         public void GroupCreationTest()
         {
-            GroupData group = new GroupData("task7")
+            GroupData group = new GroupData("name created " + DateTime.Now.ToString("dd-MM-yyyy HH:mm:ss"))
             {
-                GroupHeader = "task7",
-                GroupFooter = "task7"
+                GroupHeader = "header",
+                GroupFooter = "footer"
             };
             applicationManager.Navigator.GoToGroupsPage();
             List<GroupData> oldGroups = applicationManager.Groups.GetGroupList();

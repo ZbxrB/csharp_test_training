@@ -29,7 +29,7 @@ namespace WebAddressbookTests
                 return true;
             }
 
-            return groupName == other.groupName;
+            return groupName == other.GroupName;
         }
 
         public override int GetHashCode()

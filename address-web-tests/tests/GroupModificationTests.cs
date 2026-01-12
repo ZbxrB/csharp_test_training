@@ -13,13 +13,13 @@ namespace WebAddressbookTests
         [Test]
         public void GroupModificationTest()
         {
-            GroupData newData = new GroupData("modified " + DateTime.Now.ToString("dd-MM-yyyy HH:mm:ss"))
+            GroupData newData = new GroupData("name modified " + DateTime.Now.ToString("dd-MM-yyyy HH:mm:ss"))
             {
-               GroupHeader = null,
-               GroupFooter = null
+               GroupHeader = "header modified",
+               GroupFooter = "footer modified"
             };
-
             int index = 0;
+
             applicationManager.Navigator.GoToGroupsPage();
 
             if (applicationManager.Groups.VerifyingGroupExistence() == false)
