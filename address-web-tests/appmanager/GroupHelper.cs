@@ -31,6 +31,7 @@ namespace WebAddressbookTests
         {
             SelectGroup(index);
             RemoveGroup();
+            manager.Navigator.GoToGroupsPage();
 
             return this;
         }
@@ -41,6 +42,7 @@ namespace WebAddressbookTests
             InitGroupModification();
             FillGroupForm(newData);
             SubmitGroupModification();
+            manager.Navigator.GoToGroupsPage();
 
             return this;
         }
@@ -108,7 +110,6 @@ namespace WebAddressbookTests
         public List<GroupData> GetGroupList()
         {
             List<GroupData> groups = new List<GroupData>();
-            manager.Navigator.GoToGroupsPage();
             ICollection<IWebElement> elements = driver.FindElements(By.CssSelector("span.group"));
 
             foreach (IWebElement element in elements)

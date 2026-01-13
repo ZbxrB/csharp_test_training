@@ -50,7 +50,7 @@ namespace WebAddressbookTests
             {
                 return 1;
             }
-            return 
+            return (firstname +lastname).CompareTo(other.Firstname + other.Lastname);
         }
 
 

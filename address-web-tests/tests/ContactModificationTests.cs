@@ -18,7 +18,7 @@ namespace WebAddressbookTests
                 Middlename = "modified middlename"
             };
 
-            int index = 2;
+            int index = 0;
 
             applicationManager.Navigator.GoToHomePage();
 
@@ -27,7 +27,14 @@ namespace WebAddressbookTests
                 applicationManager.Contacts.CreateDefaultContact();
             }
 
+            List<ContactData> oldContacts = applicationManager.Contacts.GetContactList();
             applicationManager.Contacts.Modify(index, newData);
+            List<ContactData> newContacts = applicationManager.Contacts.GetContactList();
+            oldContacts[index].Firstname = newData.Firstname;
+            oldContacts[index].Lastname = newData.Lastname;
+            oldContacts.Sort();
+            newContacts.Sort();
+            Assert.AreEqual(oldContacts, newContacts);
             applicationManager.Navigator.GoToHomePage();
         }
     }

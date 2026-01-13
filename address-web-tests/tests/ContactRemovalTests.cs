@@ -13,6 +13,7 @@ namespace WebAddressbookTests
 
         public void ContactRemovalTest()
         {
+            int index = 0;
             applicationManager.Navigator.GoToHomePage();
 
             if (applicationManager.Contacts.VerifyingContactExistence() == false)
@@ -20,7 +21,13 @@ namespace WebAddressbookTests
                 applicationManager.Contacts.CreateDefaultContact();
             }
 
-            applicationManager.Contacts.Remove(2);
+            List<ContactData> oldContacts = applicationManager.Contacts.GetContactList();
+            applicationManager.Contacts.Remove(index);
+            List<ContactData> newContacts = applicationManager.Contacts.GetContactList();
+            oldContacts.RemoveAt(index);
+            //oldContacts.Sort();
+            //newContacts.Sort();
+            Assert.AreEqual(oldContacts, newContacts);
             applicationManager.Navigator.GoToHomePage();
         }
 

@@ -140,6 +140,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="appmanager\ContactHelper.cs" />
+    <Compile Include="appmanager\GlobalFixture.cs" />
     <Compile Include="model\AccountData.cs" />
     <Compile Include="appmanager\ApplicationManager.cs" />
     <Compile Include="model\ContactData.cs" />
