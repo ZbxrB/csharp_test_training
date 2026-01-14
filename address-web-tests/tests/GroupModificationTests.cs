@@ -29,6 +29,9 @@ namespace WebAddressbookTests
 
             List<GroupData> oldGroups = applicationManager.Groups.GetGroupList();
             applicationManager.Groups.Modify(index, newData);
+            Assert.AreEqual(oldGroups.Count,
+                applicationManager.Groups.GetGroupCount());
+
             List<GroupData> newGroups = applicationManager.Groups.GetGroupList();
             oldGroups[index].GroupName = newData.GroupName;
             oldGroups.Sort();
