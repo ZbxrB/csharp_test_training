@@ -8,15 +8,11 @@ namespace WebAddressbookTests
 {
     public class ContactData : IEquatable<ContactData>, IComparable<ContactData>
     {
-        private string firstname;
-        private string lastname;
-        private string middlename = "";
-        private string homePhoneNumber = "";
 
         public ContactData(string firstname, string lastname)
         {
-            this.firstname = firstname;
-            this.lastname = lastname;
+            Firstname = firstname;
+            Lastname = lastname;
         }
         
         public bool Equals(ContactData other)
@@ -30,18 +26,18 @@ namespace WebAddressbookTests
                 return true;
             }
 
-            return firstname == other.Firstname
-                                    && lastname == other.Lastname; 
+            return Firstname == other.Firstname
+                                    && Lastname == other.Lastname; 
         }
 
         public override int GetHashCode()
         {
-            return (firstname+lastname).GetHashCode();
+            return (Firstname+Lastname).GetHashCode();
         }
 
         public override string ToString()
         {
-            return "firstname = " + firstname + "; lastname = " + lastname;
+            return "firstname = " + Firstname + "; lastname = " + Lastname;
         }
 
         public int CompareTo(ContactData other)
@@ -50,56 +46,16 @@ namespace WebAddressbookTests
             {
                 return 1;
             }
-            return (firstname +lastname).CompareTo(other.Firstname + other.Lastname);
+            return (Firstname +Lastname).CompareTo(other.Firstname + other.Lastname);
         }
 
 
-        public string Firstname
-        {
-            get
-            {
-                return this.firstname;
-            }
-            set
-            {
-                this.firstname = value;
-            }
-        }
+        public string Firstname { get; set; }
 
-        public string Lastname
-        {
-            get
-            {
-                return this.lastname;
-            }
-            set
-            {
-                this.lastname = value;
-            }
-        }
+        public string Lastname { get; set; }
 
-        public string Middlename
-        {
-            get
-            {
-                return this.middlename;
-            }
-            set
-            {
-                this.middlename = value;
-            }
-        }
+        public string Middlename { get; set; } = "";
 
-        public string HomePhoneNumber
-        {
-            get
-            {
-                return this.homePhoneNumber;
-            }
-            set
-            {
-                this.homePhoneNumber = value;
-            }
-        }
+        public string HomePhoneNumber { get; set; } = "";
     }
 }

@@ -56,6 +56,7 @@ namespace WebAddressbookTests
 
             ContactData defaultContact = new ContactData("default firstname", "default lastname");
             Create(defaultContact);
+            contactCache = null;
 
             return this;
         }
@@ -63,6 +64,7 @@ namespace WebAddressbookTests
         public ContactHelper SubmitContactModification()
         {
             driver.FindElement(By.Name("update")).Click();
+            contactCache = null;
             return this;
         }
 
@@ -74,6 +76,7 @@ namespace WebAddressbookTests
         public ContactHelper RemoveContact()
         {
             driver.FindElement(By.Name("delete")).Click();
+            contactCache = null;
             return this;
         }
 
@@ -109,21 +112,27 @@ namespace WebAddressbookTests
         public ContactHelper SubmitContactCreation()
         {
             driver.FindElement(By.XPath("//div[@id='content']/form/input[20]")).Click();
+            contactCache = null;
             return this;
         }
 
+        private List<ContactData> contactCache = null;
+
         internal List<ContactData> GetContactList()
         {
-            List<ContactData> contacts = new List<ContactData>();
-            ICollection<IWebElement> elements = driver.FindElements(By.XPath("//tr[td/input[@name='selected[]']]"));
-
-            foreach (IWebElement element in elements)
+            if (contactCache == null)
             {
-               contacts.Add(new ContactData(element.FindElements(By.TagName("td"))[2].Text,
-                                            element.FindElements(By.TagName("td"))[1].Text));
+                contactCache = new List<ContactData>();
+                ICollection<IWebElement> elements = driver.FindElements(By.XPath("//tr[td/input[@name='selected[]']]"));
+
+                foreach (IWebElement element in elements)
+                {
+                    contactCache.Add(new ContactData(element.FindElements(By.TagName("td"))[2].Text,
+                                                 element.FindElements(By.TagName("td"))[1].Text));
+                }
             }
 
-            return contacts;
+            return new List<ContactData>(contactCache);
         }
     }
 }
