@@ -8,14 +8,10 @@ namespace WebAddressbookTests
 {
     public class GroupData : IEquatable<GroupData>, IComparable<GroupData>
     {
-        private string groupName;
-        private string groupHeader = "";
-        private string groupFooter = "";
-
 
         public GroupData(string groupName)
         {
-            this.groupName = groupName;
+            GroupName = groupName;
         }
 
         public bool Equals(GroupData other)
@@ -29,18 +25,18 @@ namespace WebAddressbookTests
                 return true;
             }
 
-            return groupName == other.GroupName;
+            return GroupName == other.GroupName;
         }
 
         public override int GetHashCode()
         {
-            return groupName.GetHashCode();
+            return GroupName.GetHashCode();
         }
 
         // возвращает строковое представление экземпляра класса GroupData
         public override string ToString()
         {
-            return "name = " + groupName;
+            return "name = " + GroupName;
         }
 
         public int CompareTo(GroupData other)
@@ -49,44 +45,17 @@ namespace WebAddressbookTests
             {
                 return 1;
             }
-            return groupName.CompareTo(other.groupName);
+            return GroupName.CompareTo(other.GroupName);
         }
 
 
-        public string GroupName
-        {
-            get
-            {
-                return this.groupName;
-            }
-            set
-            {
-                this.groupName = value;
-            }
-        }
+        public string GroupName { get; set; }
 
-        public string GroupHeader
-        {
-            get
-            {
-                return this.groupHeader;
-            }
-            set
-            {
-                this.groupHeader = value;
-            }
-        }
+        public string GroupHeader { get; set; }
 
-        public string GroupFooter
-        {
-            get
-            {
-                return this.groupFooter;
-            }
-            set
-            {
-                this.groupFooter = value;
-            }
-        }
+        public string GroupFooter { get; set; }
+
+        public string Id { get; set; }
+
     }
 }

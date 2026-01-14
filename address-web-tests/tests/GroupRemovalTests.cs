@@ -27,8 +27,18 @@ namespace WebAddressbookTests
             Assert.AreEqual(oldGroups.Count - 1,
                             applicationManager.Groups.GetGroupCount());
             List<GroupData> newGroups = applicationManager.Groups.GetGroupList();
+
+            // сохраняем данные удаленной группы
+            GroupData toBeRemoved = oldGroups[index];
+
             oldGroups.RemoveAt(index);
             Assert.AreEqual(oldGroups, newGroups);
+
+            // проверяем по уникальному Id, что группа отсутствует в новом списке, а значит действительно удалена
+            foreach (GroupData group in newGroups)
+            {
+                Assert.AreNotEqual(group.Id, toBeRemoved.Id);
+            }
         }
     }
 }
