@@ -9,7 +9,6 @@ using System.Reflection;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
-using System.Text.RegularExpressions;
 
 
 namespace WebAddressbookTests
@@ -74,14 +73,13 @@ namespace WebAddressbookTests
 
         public ContactHelper GoToModifyingForm(int index)
         {
-            // способ из лекции 5.3
             driver.FindElements(By.Name("entry"))[index]
                     .FindElements(By.TagName("td"))[7]
                     .FindElement(By.TagName("a")).Click();
-            // старый способ найти и нажать кнопку редактирования контакта
-            //driver.FindElement(By.XPath("//table[@id='maintable']/tbody/tr[" + (index + 2) + "]/td[8]/a/img")).Click();
+
             return this;
         }
+
         public ContactHelper RemoveContact()
         {
             driver.FindElement(By.Name("delete")).Click();
@@ -168,19 +166,36 @@ namespace WebAddressbookTests
             manager.Navigator.GoToHomePage();
             GoToModifyingForm(index);
             string firstname = driver.FindElement(By.Name("firstname")).GetAttribute("value");
+            string middlename = driver.FindElement(By.Name("middlename")).GetAttribute("value");
             string lastname = driver.FindElement(By.Name("lastname")).GetAttribute("value");
+            string nickname = driver.FindElement(By.Name("nickname")).GetAttribute("value");
+            string company = driver.FindElement(By.Name("company")).GetAttribute("value");
+            string title = driver.FindElement(By.Name("title")).GetAttribute("value");
             string address = driver.FindElement(By.Name("address")).GetAttribute("value");
-
             string homePhone = driver.FindElement(By.Name("home")).GetAttribute("value");
             string mobilePhone = driver.FindElement(By.Name("mobile")).GetAttribute("value");
             string workPhone = driver.FindElement(By.Name("work")).GetAttribute("value");
+            string fax = driver.FindElement(By.Name("fax")).GetAttribute("value");
+            string email = driver.FindElement(By.Name("email")).GetAttribute("value");
+            string email2 = driver.FindElement(By.Name("email2")).GetAttribute("value");
+            string email3 = driver.FindElement(By.Name("email3")).GetAttribute("value");
+            string homepage = driver.FindElement(By.Name("homepage")).GetAttribute("value");
 
             return new ContactData(firstname, lastname)
             {
+                Middlename = middlename,
+                Nickname = nickname,
+                Company = company,
+                Title = title,
                 Address = address,
                 HomePhone = homePhone,
                 MobilePhone = mobilePhone,
-                WorkPhone = workPhone
+                WorkPhone = workPhone,
+                FaxPhone = fax,
+                Email = email,
+                Email2 = email2,
+                Email3 = email3,
+                Homepage = homepage.Replace("http://", ""),
             };
         }
 
@@ -190,6 +205,25 @@ namespace WebAddressbookTests
             string text = driver.FindElement(By.TagName("label")).Text;
             Match m = new Regex(@"\d+").Match(text);
             return Int32.Parse(m.Value);
+        }
+
+        public ContactHelper GoToContactDetailsPage(int index)
+        {
+            driver.FindElements(By.Name("entry"))[index]
+                  .FindElements(By.TagName("td"))[6]
+                  .FindElement(By.TagName("a")).Click();
+
+            return this;
+        }
+
+        public string GetContactDetailsInformation(int index)
+        {
+            manager.Contacts.GoToContactDetailsPage(index);
+            string temp = driver.FindElement(By.Id("content")).Text;
+            string text = Regex.Replace(input: driver.FindElement(By.Id("content")).Text,
+                                 pattern: @"H: |M: |W: |F: |Homepage:|",
+                                 replacement: "");
+            return Regex.Replace(text, @"(\r\n)+", " ") + " ";
         }
     }
 }
