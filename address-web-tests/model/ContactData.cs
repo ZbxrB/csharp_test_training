@@ -8,7 +8,6 @@ using System.Text.RegularExpressions;
 namespace WebAddressbookTests
 {
     public class ContactData : IEquatable<ContactData>, IComparable<ContactData>
-
     {
         private string allPhones;
 
