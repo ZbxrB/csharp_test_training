@@ -151,7 +151,7 @@ namespace WebAddressbookTests
                 .FindElements(By.TagName("td"));
             string lastname = cells[1].Text;
             string firstname = cells[2].Text;
-            string address = cells[1].Text;
+            string address = cells[3].Text;
             string allPhones = cells[5].Text;
 
             return new ContactData(firstname, lastname)

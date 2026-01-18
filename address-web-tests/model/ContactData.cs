@@ -8,7 +8,10 @@ using System.Text.RegularExpressions;
 namespace WebAddressbookTests
 {
     public class ContactData : IEquatable<ContactData>, IComparable<ContactData>
+
     {
+        private string allPhones;
+
         public ContactData(string firstname, string lastname)
         {
             Firstname = firstname;
@@ -70,9 +73,9 @@ namespace WebAddressbookTests
         {
             get
             {
-                if (AllPhones != null)
+                if (this.allPhones != null)
                 {
-                    return AllPhones;
+                    return this.allPhones;
                 }
 
                 else
@@ -83,7 +86,7 @@ namespace WebAddressbookTests
             
             set
             {
-                AllPhones = value;
+                this.allPhones = value;
             }
         }
 
