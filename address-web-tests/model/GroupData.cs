@@ -36,7 +36,7 @@ namespace WebAddressbookTests
         // возвращает строковое представление экземпляра класса GroupData
         public override string ToString()
         {
-            return "name = " + GroupName;
+            return $"name = {GroupName}\nheader = {GroupHeader}\nfooter = {GroupFooter}";
         }
 
         public int CompareTo(GroupData other)

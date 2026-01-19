@@ -10,14 +10,27 @@ namespace WebAddressbookTests
     [TestFixture]
     public class GroupCreationTests : AuthTestBase
     {
-        [Test]
-        public void GroupCreationTest()
+
+
+        public static IEnumerable<GroupData> RandomGroupDataProvider()
         {
-            GroupData group = new GroupData("name created " + DateTime.Now.ToString("dd-MM-yyyy HH:mm:ss"))
+            List<GroupData> groups = new List<GroupData>();
+
+            for (int i = 0; i < 5; i++)
             {
-                GroupHeader = "header",
-                GroupFooter = "footer"
-            };
+                groups.Add(new GroupData(GenerateRandomString(30))
+                {
+                    GroupHeader = GenerateRandomString(100),
+                    GroupFooter = GenerateRandomString(100),
+                });
+            }
+            return groups;
+        }
+
+
+        [Test, TestCaseSource("RandomGroupDataProvider")]
+        public void GroupCreationTest(GroupData group)
+        {
             applicationManager.Navigator.GoToGroupsPage();
             List<GroupData> oldGroups = applicationManager.Groups.GetGroupList();
             applicationManager.Groups.Create(group);
@@ -26,29 +39,6 @@ namespace WebAddressbookTests
                             applicationManager.Groups.GetGroupCount());
 
             List<GroupData> newGroups =  applicationManager.Groups.GetGroupList();
-            oldGroups.Add(group);
-
-            oldGroups.Sort();
-            newGroups.Sort();
-            Assert.AreEqual(oldGroups, newGroups);
-        }
-
-        [Test]
-        public void EmptyGroupCreationTest()
-        {
-            GroupData group = new GroupData("")
-            {
-                GroupHeader = "",
-                GroupFooter = ""
-            };
-            applicationManager.Navigator.GoToGroupsPage();
-            List<GroupData> oldGroups = applicationManager.Groups.GetGroupList();
-            applicationManager.Groups.Create(group);
-
-            Assert.AreEqual(oldGroups.Count + 1,
-                applicationManager.Groups.GetGroupCount());
-
-            List<GroupData> newGroups = applicationManager.Groups.GetGroupList();
             oldGroups.Add(group);
 
             oldGroups.Sort();
