@@ -61,7 +61,6 @@ namespace WebAddressbookTests
         public string Company { get; set; } = "";
         public string Address { get; set; } = "";
         public string HomePhone { get; set; } = "";
-        public string HomePhoneNumber { get; set; } = "";
         public string MobilePhone { get; set; } = "";
         public string WorkPhone { get; set; } = "";
         public string FaxPhone { get; set; } = "";
@@ -102,20 +101,23 @@ namespace WebAddressbookTests
 
         internal string GetContactInformationAsDetails()
         {
-            string text = "";
+            StringBuilder builder = new StringBuilder();
 
-            foreach (PropertyInfo property in this.GetType().GetProperties())
-            {
-                string value = Convert.ToString(property.GetValue(this));
-                if (property.Name != "AllPhones")
-                { 
-                   if (value != "")
-                    {
-                        text = text + value + " ";
-                    }
-                }
-            }
-            return text;
+            builder.Append($"{Firstname} {Middlename} {Lastname}\n");
+            builder.Append($"{Nickname}\n");
+            builder.Append($"{Title}\n");
+            builder.Append($"{Company}\n");
+            builder.Append($"{Address}\n\n");
+            builder.Append($"H: {HomePhone}\n");
+            builder.Append($"M: {MobilePhone}\n");
+            builder.Append($"W: {WorkPhone}\n");
+            builder.Append($"F: {FaxPhone}\n\n");
+            builder.Append($"{Email}\n");
+            builder.Append($"{Email2}\n");
+            builder.Append($"{Email3}\n");
+            builder.Append($"Homeoage:{Homepage.Replace("http://", "")}\n");
+
+            return builder.ToString();
         }
     }
 }

@@ -14,7 +14,7 @@ namespace WebAddressbookTests
         {
             ContactData newData = new ContactData("modified " + DateTime.Now.ToString("dd-MM-yyyy HH:mm:ss"), "modified lastname")
             {
-                HomePhoneNumber = "modified number",
+                HomePhone = "modified number",
                 Middlename = "modified middlename"
             };
 

@@ -112,7 +112,7 @@ namespace WebAddressbookTests
             driver.FindElement(By.Name("middlename")).SendKeys(contact.Middlename);
             driver.FindElement(By.Name("home")).Click();
             driver.FindElement(By.Name("home")).Clear();
-            driver.FindElement(By.Name("home")).SendKeys(contact.HomePhoneNumber);
+            driver.FindElement(By.Name("home")).SendKeys(contact.HomePhone);
             return this;
         }
 
@@ -219,11 +219,7 @@ namespace WebAddressbookTests
         public string GetContactDetailsInformation(int index)
         {
             manager.Contacts.GoToContactDetailsPage(index);
-            string temp = driver.FindElement(By.Id("content")).Text;
-            string text = Regex.Replace(input: driver.FindElement(By.Id("content")).Text,
-                                 pattern: @"H: |M: |W: |F: |Homepage:|",
-                                 replacement: "");
-            return Regex.Replace(text, @"(\r\n)+", " ") + " ";
+            return driver.FindElement(By.Id("content")).Text;
         }
     }
 }
