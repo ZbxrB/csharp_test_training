@@ -97,7 +97,7 @@ namespace WebAddressbookTests
             {
                 return "";
             }
-            return Regex.Replace(phone, "[ -()]", "") + "\r\n";
+            return Regex.Replace(phone, "[ ()-]", "") + "\r\n";
         }
 
         internal string GetContactInformationAsDetails()
