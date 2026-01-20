@@ -4,6 +4,7 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading;
 using System.Collections.Generic;
+using System.IO;
 
 namespace WebAddressbookTests
 {
@@ -27,7 +28,25 @@ namespace WebAddressbookTests
             return groups;
         }
 
-        [Test, TestCaseSource("RandomGroupDataProvider")]
+        public static IEnumerable<GroupData> GroupDataFromFile()
+        {
+            List<GroupData> groups = new List<GroupData>();
+            string[] lines = File.ReadAllLines(@"groups.csv");
+            foreach (string line in lines)
+            {
+                string [] parts =  line.Split(',');
+                groups.Add(
+                    new GroupData(parts[0])
+                    {
+                        GroupHeader = parts[1],
+                        GroupFooter = parts[2]
+                    });
+            }
+
+            return groups;
+        }
+
+        [Test, TestCaseSource("GroupDataFromFile")]
         public void GroupCreationTest(GroupData group)
         {
             applicationManager.Navigator.GoToGroupsPage();
