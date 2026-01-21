@@ -99,25 +99,47 @@ namespace WebAddressbookTests
             return Regex.Replace(phone, "[ ()-]", "") + "\r\n";
         }
 
-        internal string GetContactInformationAsDetails()
+        public string PrepareContactInformationString(string infoString, string starting = "",  string ending = "")
         {
-            StringBuilder builder = new StringBuilder();
+            if (infoString == null || infoString == "")
+            {
+                return "";
+            }
 
-            builder.Append($"{Firstname} {Middlename} {Lastname}\n");
-            builder.Append($"{Nickname}\n");
-            builder.Append($"{Title}\n");
-            builder.Append($"{Company}\n");
-            builder.Append($"{Address}\n\n");
-            builder.Append($"H: {HomePhone}\n");
-            builder.Append($"M: {MobilePhone}\n");
-            builder.Append($"W: {WorkPhone}\n");
-            builder.Append($"F: {FaxPhone}\n\n");
-            builder.Append($"{Email}\n");
-            builder.Append($"{Email2}\n");
-            builder.Append($"{Email3}\n");
-            builder.Append($"Homeoage:{Homepage.Replace("http://", "")}\n");
+            return string.Concat(starting, infoString, ending);
+        }
 
-            return builder.ToString();
+        public string GetContactInformationAsDetails()
+        {
+            string ending = "\r\n";
+            StringBuilder builder = new StringBuilder("");
+
+            // name section
+            builder.Append(PrepareContactInformationString(infoString: Firstname, ending: " "));
+            builder.Append(PrepareContactInformationString(infoString: Middlename, ending: " "));
+            builder.Append(PrepareContactInformationString(infoString: Lastname, ending: ending));
+            builder.Append(PrepareContactInformationString(infoString: Nickname, ending: ending));
+            builder.Append(PrepareContactInformationString(infoString: Title, ending: ending));
+            builder.Append(PrepareContactInformationString(infoString: Company, ending: ending));
+            builder.Append(PrepareContactInformationString(infoString: Address));
+            builder = new StringBuilder(builder.ToString().Trim());
+            builder.Append(ending + ending);
+
+            //phone section
+            builder.Append(PrepareContactInformationString(infoString: HomePhone, starting: "H: ",  ending: ending));
+            builder.Append(PrepareContactInformationString(infoString: MobilePhone, starting: "M: ", ending: ending));
+            builder.Append(PrepareContactInformationString(infoString: WorkPhone, starting: "W: ", ending: ending));
+            builder.Append(PrepareContactInformationString(infoString: FaxPhone, starting: "F: "));
+            builder = new StringBuilder(builder.ToString().Trim());
+            builder.Append(ending + ending);
+
+            //email section
+            builder.Append(PrepareContactInformationString(infoString: Email, ending: ending));
+            builder.Append(PrepareContactInformationString(infoString: Email2, ending: ending));
+            builder.Append(PrepareContactInformationString(infoString: Email3, ending: ending));
+            builder.Append(PrepareContactInformationString(infoString: Homepage.Replace("http://", ""), starting: "Homepage:", ending: ending));
+
+            return builder.ToString().Trim();
         }
     }
 }
