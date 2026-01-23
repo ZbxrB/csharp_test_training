@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using WebAddressbookTests;
 using System.Xml;
 using System.Xml.Serialization;
+using Newtonsoft.Json;
 
 namespace addressbook_test_data_generators
 {
@@ -37,6 +38,10 @@ namespace addressbook_test_data_generators
             {
                 writeToXmlFile(groups, writer);
             }
+            else if (format == "json")
+            {
+                writeToJsonFile(groups, writer);
+            }
             else
             {
                 System.Console.Out.Write($"Unrecognized format: {format}");
@@ -58,6 +63,15 @@ namespace addressbook_test_data_generators
         static void writeToXmlFile(List<GroupData> groups, StreamWriter writer)
         {
             new XmlSerializer(typeof(List<GroupData>)).Serialize(writer, groups);
+        }
+
+        static void writeToJsonFile(List<GroupData> groups, StreamWriter writer)
+        {
+            // по-умолчанию SerializeObject возвращает как можно более компакнтный файл, исключая все ненужные для чтения формата символы
+            // (лишние проелы, табы, переводы строк) из-за чего такой файл неудобно читать
+            // формат, удобный для чтения человеком можно получить передав параметр Newtonsoft.Json.Formatting.Indented (полное имя,
+            // так как Formatting.Indented есть в библиотеке System, котрую мы тоже используем, из-за чего возникает конфликт имен
+            writer.Write(JsonConvert.SerializeObject(groups, Newtonsoft.Json.Formatting.Indented));
         }
 
     }

@@ -7,6 +7,8 @@ using System.Collections.Generic;
 using System.IO;
 using System.Xml;
 using System.Xml.Serialization;
+using Newtonsoft.Json;
+using System.Text.Json.Serialization;
 
 namespace WebAddressbookTests
 {
@@ -55,7 +57,13 @@ namespace WebAddressbookTests
                     .Deserialize(new StreamReader(@"groups.xml"));
         }
 
-        [Test, TestCaseSource("GroupDataFromXmlFile")]
+        public static IEnumerable<GroupData> GroupDataFromJsonFile()
+        {
+            return JsonConverter.DeserializeObject<List<GroupData>>(
+                File.ReadAllText(@"groups.json"));
+        }
+
+        [Test, TestCaseSource("GroupDataFromJsonFile")]
         public void GroupCreationTest(GroupData group)
         {
             applicationManager.Navigator.GoToGroupsPage();
