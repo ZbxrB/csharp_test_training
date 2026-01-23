@@ -8,7 +8,6 @@ using System.IO;
 using System.Xml;
 using System.Xml.Serialization;
 using Newtonsoft.Json;
-using System.Text.Json.Serialization;
 
 namespace WebAddressbookTests
 {
@@ -59,7 +58,7 @@ namespace WebAddressbookTests
 
         public static IEnumerable<GroupData> GroupDataFromJsonFile()
         {
-            return JsonConverter.DeserializeObject<List<GroupData>>(
+            return JsonConvert.DeserializeObject<List<GroupData>>(
                 File.ReadAllText(@"groups.json"));
         }
 
