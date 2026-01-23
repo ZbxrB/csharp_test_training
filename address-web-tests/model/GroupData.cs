@@ -8,6 +8,9 @@ namespace WebAddressbookTests
 {
     public class GroupData : IEquatable<GroupData>, IComparable<GroupData>
     {
+        public GroupData()
+        {
+        }
 
         public GroupData(string groupName)
         {
@@ -47,7 +50,6 @@ namespace WebAddressbookTests
             }
             return GroupName.CompareTo(other.GroupName);
         }
-
 
         public string GroupName { get; set; }
 
