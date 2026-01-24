@@ -8,6 +8,7 @@ using WebAddressbookTests;
 using System.Xml;
 using System.Xml.Serialization;
 using Newtonsoft.Json;
+using Excel = Microsoft.Office.Interop.Excel; // библиотека для работы с Excel
 
 namespace addressbook_test_data_generators
 {
@@ -16,7 +17,7 @@ namespace addressbook_test_data_generators
         static void Main(string[] args)
         {
             int count = Convert.ToInt32(args[0]);
-            StreamWriter writer = new StreamWriter(args[1]);
+            string filename = args[1];
             string format = args[2];
 
             List<GroupData> groups = new List<GroupData>();
@@ -30,26 +31,65 @@ namespace addressbook_test_data_generators
                 });
             }
 
-            if (format == "csv")
+            if (format == "excel")
             {
-                writeToCsvFile(groups, writer);
-            }
-            else if (format == "xml")
-            {
-                writeToXmlFile(groups, writer);
-            }
-            else if (format == "json")
-            {
-                writeToJsonFile(groups, writer);
+                WriteGroupsDataToExcelFile(groups, filename);
             }
             else
             {
-                System.Console.Out.Write($"Unrecognized format: {format}");
+                StreamWriter writer = new StreamWriter(filename);
+
+                if (format == "csv")
+                {
+                    WriteGroupsDataToCsvFile(groups, writer);
+                }
+                else if (format == "xml")
+                {
+                    WriteGroupsDataToXmlFile(groups, writer);
+                }
+                else if (format == "json")
+                {
+                    WriteGroupsDataToJsonFile(groups, writer);
+                }
+                else
+                {
+                    System.Console.Out.Write($"Unrecognized format: {format}");
+                }
+                writer.Close();
             }
-            writer.Close();
         }
 
-        static void writeToCsvFile(List<GroupData> groups, StreamWriter writer)
+        public static void WriteGroupsDataToExcelFile(List<GroupData> groups, string filename)
+        {
+            // запускаем окно приложения excel 
+            Excel.Application app = new Excel.Application();
+            // делаем видимым то, что происходит в этом окне. Нужно для отладки
+            // если не включить, код будет отрабатывать, файл будет создаваться, просто вс будет происходить в невидимом режиме
+            app.Visible = true;
+            Excel.Workbook wb = app.Workbooks.Add();
+            Excel.Worksheet sheet = wb.ActiveSheet;
+
+            int row = 1;
+            foreach (GroupData group in groups)
+            {
+                sheet.Cells[row, 1] = group.GroupName;
+                sheet.Cells[row, 2] = group.GroupHeader;
+                sheet.Cells[row, 3] = group.GroupFooter;
+                row++;
+            }
+
+            string fullPath = Path.Combine(Directory.GetCurrentDirectory(), filename);
+            File.Delete(fullPath);
+            wb.SaveAs(fullPath);
+            // закрываем файл
+            wb.Close();
+            // закрываем окно программы excel
+            app.Visible = false;
+            // скрывая окно, мы не закрываем процесс. соответственно его нужно закрыть командой ниже
+            app.Quit();
+        }
+
+        static void WriteGroupsDataToCsvFile(List<GroupData> groups, StreamWriter writer)
         {
             foreach (GroupData group in groups)
             {
@@ -60,17 +100,13 @@ namespace addressbook_test_data_generators
             }
         }
 
-        static void writeToXmlFile(List<GroupData> groups, StreamWriter writer)
+        static void WriteGroupsDataToXmlFile(List<GroupData> groups, StreamWriter writer)
         {
             new XmlSerializer(typeof(List<GroupData>)).Serialize(writer, groups);
         }
 
-        static void writeToJsonFile(List<GroupData> groups, StreamWriter writer)
+        static void WriteGroupsDataToJsonFile(List<GroupData> groups, StreamWriter writer)
         {
-            // по-умолчанию SerializeObject возвращает как можно более компакнтный файл, исключая все ненужные для чтения формата символы
-            // (лишние проелы, табы, переводы строк) из-за чего такой файл неудобно читать
-            // формат, удобный для чтения человеком можно получить передав параметр Newtonsoft.Json.Formatting.Indented (полное имя,
-            // так как Formatting.Indented есть в библиотеке System, котрую мы тоже используем, из-за чего возникает конфликт имен
             writer.Write(JsonConvert.SerializeObject(groups, Newtonsoft.Json.Formatting.Indented));
         }
 

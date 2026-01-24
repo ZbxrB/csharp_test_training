@@ -1,14 +1,14 @@
 [
   {
-    "GroupName": "8\\",
-    "GroupHeader": "!D<].1",
-    "GroupFooter": "3X3`/4:]",
+    "GroupName": "Name0",
+    "GroupHeader": "Header0",
+    "GroupFooter": "Footer0",
     "Id": null
   },
   {
-    "GroupName": ">+GV*PE&)",
-    "GroupHeader": "Z",
-    "GroupFooter": "HY9",
+    "GroupName": "Name1",
+    "GroupHeader": "Header1",
+    "GroupFooter": "Footer1",
     "Id": null
   }
 ]
