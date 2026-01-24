@@ -16,21 +16,81 @@ namespace addressbook_test_data_generators
     {
         static void Main(string[] args)
         {
-            int count = Convert.ToInt32(args[0]);
-            string filename = args[1];
-            string format = args[2];
+            string dataType = args[0];
+            int count = Convert.ToInt32(args[1]);
+            string filename = args[2];
+            string format = args[3];
 
-            List<GroupData> groups = new List<GroupData>();
-
-            for (int i = 0; i < count; i++)
+            
+            if (dataType == "group")
             {
-                groups.Add(new GroupData(TestBase.GenerateRandomString(10))
-                {
-                    GroupHeader = TestBase.GenerateRandomString(10),
-                    GroupFooter = TestBase.GenerateRandomString(10)
-                });
-            }
+                List<GroupData> groups = new List<GroupData>();
 
+                for (int i = 0; i < count; i++)
+                {
+                    groups.Add(new GroupData(TestBase.GenerateRandomString(10))
+                    {
+                        GroupHeader = TestBase.GenerateRandomString(10),
+                        GroupFooter = TestBase.GenerateRandomString(10)
+                    });
+                }
+
+                WriteGroupsDataToFile(groups, filename, format);  
+            }
+            else if (dataType == "contact")
+            {
+                List<ContactData> contacts = new List<ContactData>();
+
+                for (int i = 0; i < count; i++)
+                {
+                    contacts.Add(
+                        new ContactData()
+                        {
+                            Firstname = TestBase.GenerateRandomString(10),
+                            Lastname = TestBase.GenerateRandomString(10),
+                            HomePhone = TestBase.GenerateRandomString(10)
+                        });
+                }
+
+                WriteContactsDataToFile(contacts, filename, format);
+            }
+            else
+            {
+                System.Console.Out.Write($"Unsupported data type: {dataType}");
+            }   
+        }
+
+        private static void WriteContactsDataToFile(List<ContactData> contacts, string filename, string format)
+        {
+            StreamWriter writer = new StreamWriter(filename);
+
+            if (format == "json")
+            {
+                WriteContactsDataToJsonFile(contacts, writer);
+            }
+            else if (format == "xml")
+            {
+                WriteContactsDataToXmlFile(contacts, writer);
+            }
+            else
+            {
+                System.Console.Out.Write($"Format \"{format}\" is unsupported for \"contact\" data type.");
+            }
+            writer.Close();
+        }
+
+        private static void WriteContactsDataToXmlFile(List<ContactData> contacts, StreamWriter writer)
+        {
+            new XmlSerializer(typeof(List<ContactData>)).Serialize(writer, contacts);
+        }
+
+        private static void WriteContactsDataToJsonFile(List<ContactData> contacts, StreamWriter writer)
+        {
+            writer.Write(JsonConvert.SerializeObject(contacts, Newtonsoft.Json.Formatting.Indented));
+        }
+
+        public static void WriteGroupsDataToFile(List<GroupData> groups, string filename, string format)
+        {
             if (format == "excel")
             {
                 WriteGroupsDataToExcelFile(groups, filename);
@@ -53,7 +113,7 @@ namespace addressbook_test_data_generators
                 }
                 else
                 {
-                    System.Console.Out.Write($"Unrecognized format: {format}");
+                    System.Console.Out.Write($"Format \"{format}\" is unsupported for \"group\" data type.");
                 }
                 writer.Close();
             }

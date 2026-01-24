@@ -36,9 +36,10 @@ namespace WebAddressbookTests
             return GroupName.GetHashCode();
         }
 
-        // возвращает строковое представление экземпляра класса GroupData
+        
         public override string ToString()
         {
+            // возвращает строковое представление экземпляра класса GroupData
             return $"name = {GroupName}\nheader = {GroupHeader}\nfooter = {GroupFooter}";
         }
 
