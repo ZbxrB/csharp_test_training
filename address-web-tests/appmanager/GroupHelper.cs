@@ -122,6 +122,7 @@ namespace WebAddressbookTests
             // если кэш пустой, то проводим поиск
             if (groupCache == null)
             {
+                manager.Navigator.GoToGroupsPage();
                 groupCache = new List<GroupData>();
                 ICollection<IWebElement> elements = driver.FindElements(By.CssSelector("span.group"));
 
