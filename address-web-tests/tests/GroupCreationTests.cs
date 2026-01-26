@@ -17,7 +17,7 @@ using System.Linq;
 namespace WebAddressbookTests
 {
     [TestFixture]
-    public class GroupCreationTests : AuthTestBase
+    public class GroupCreationTests : GroupTestBase
     {
 
 
@@ -100,13 +100,13 @@ namespace WebAddressbookTests
         public void GroupCreationTest(GroupData group)
         {
             applicationManager.Navigator.GoToGroupsPage();
-            List<GroupData> oldGroups = applicationManager.Groups.GetGroupList();
+            List<GroupData> oldGroups = GroupData.GetAll();
             applicationManager.Groups.Create(group);
 
             Assert.AreEqual(oldGroups.Count + 1,
                             applicationManager.Groups.GetGroupCount());
 
-            List<GroupData> newGroups =  applicationManager.Groups.GetGroupList();
+            List<GroupData> newGroups = GroupData.GetAll();
             oldGroups.Add(group);
 
             oldGroups.Sort();
