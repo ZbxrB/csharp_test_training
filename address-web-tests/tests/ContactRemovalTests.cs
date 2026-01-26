@@ -14,21 +14,19 @@ namespace WebAddressbookTests
         public void ContactRemovalTest()
         {
             int index = 0;
-            applicationManager.Navigator.GoToHomePage();
 
             if (applicationManager.Contacts.VerifyingContactExistence() == false)
             {
                 applicationManager.Contacts.CreateDefaultContact();
             }
 
-            List<ContactData> oldContacts = applicationManager.Contacts.GetContactList();
-            applicationManager.Contacts.Remove(index);
-            List<ContactData> newContacts = applicationManager.Contacts.GetContactList();
+            List<ContactData> oldContacts = ContactData.GetAll();
+            ContactData toBeRemoved = oldContacts[index];
+
+            applicationManager.Contacts.Remove(toBeRemoved);
+            List<ContactData> newContacts = ContactData.GetAll();
             oldContacts.RemoveAt(index);
-            //oldContacts.Sort();
-            //newContacts.Sort();
             Assert.AreEqual(oldContacts, newContacts);
-            applicationManager.Navigator.GoToHomePage();
         }
 
     }

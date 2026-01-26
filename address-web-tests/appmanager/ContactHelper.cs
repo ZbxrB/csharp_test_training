@@ -4,6 +4,7 @@ using OpenQA.Selenium.Firefox;
 using OpenQA.Selenium.Support.UI;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Reflection;
 using System.Text;
@@ -31,17 +32,19 @@ namespace WebAddressbookTests
             return this;
         }
 
-        public ContactHelper Remove(int index)
+        public ContactHelper Remove(ContactData toBeRemoved)
         {
-            SelectContact(index);
+            manager.Navigator.GoToHomePage();
+            SelectContact(toBeRemoved.Id);
             RemoveContact();
             manager.Navigator.GoToHomePage();
             return this;
         }
 
-        public ContactHelper Modify(int index, ContactData newData)
+        public ContactHelper Modify(ContactData toBeModofied, ContactData newData)
         {
-            GoToModifyingForm(index);
+            manager.Navigator.GoToHomePage();
+            GoToModifyingForm(toBeModofied);
             FillContactForm(newData);
             SubmitContactModification();
             manager.Navigator.GoToHomePage();
@@ -50,6 +53,7 @@ namespace WebAddressbookTests
 
         public bool VerifyingContactExistence()
         {
+            manager.Navigator.GoToHomePage();
             return IsElementPresent(By.Name("entry"))
                 && IsElementPresent(By.ClassName("center"));
         }
@@ -73,10 +77,17 @@ namespace WebAddressbookTests
 
         public ContactHelper GoToModifyingForm(int index)
         {
+            // is used in GetContactInformationFromEditForm with int index
+            // i need to change that method and remove this
             driver.FindElements(By.Name("entry"))[index]
                     .FindElements(By.TagName("td"))[7]
                     .FindElement(By.TagName("a")).Click();
+            return this;
+        }
 
+        public ContactHelper GoToModifyingForm(ContactData toBeModified)
+        {
+            driver.FindElement(By.XPath("//tr[.//input[@id=\"" + toBeModified.Id + "\"]]//a[contains(@href, 'edit.php')]")).Click();
             return this;
         }
 

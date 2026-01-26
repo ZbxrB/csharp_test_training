@@ -49,9 +49,10 @@ namespace WebAddressbookTests
 
         }
 
-        public GroupHelper Modify(int index, GroupData newData)
+        public GroupHelper Modify(GroupData toBeModified, GroupData newData)
         {
-            SelectGroup(index);
+            manager.Navigator.GoToGroupsPage();
+            SelectGroup(toBeModified.Id);
             InitGroupModification();
             FillGroupForm(newData);
             SubmitGroupModification();
@@ -70,6 +71,7 @@ namespace WebAddressbookTests
 
         public bool VerifyingGroupExistence()
         {
+            manager.Navigator.GoToGroupsPage();
             return IsElementPresent(By.ClassName("group"))
                     && IsElementPresent(By.Name("selected[]"));
         }

@@ -48,11 +48,14 @@ namespace WebAddressbookTests
         public void ContactCreationTest(ContactData contact)
         {
             applicationManager.Navigator.GoToHomePage();
-            List<ContactData> oldContacts = applicationManager.Contacts.GetContactList();
+
+            List<ContactData> oldContacts = ContactData.GetAll();
+
+            //List<ContactData> oldContacts = applicationManager.Contacts.GetContactList();
 
             applicationManager.Contacts.Create(contact);
 
-            List<ContactData> newContacts = applicationManager.Contacts.GetContactList();
+            List<ContactData> newContacts = ContactData.GetAll();
 
             oldContacts.Add(contact);
 

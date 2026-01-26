@@ -12,26 +12,26 @@ namespace WebAddressbookTests
         [Test]
         public void ContactModificationTest()
         {
-            ContactData newData = new ContactData("modified " + DateTime.Now.ToString("dd-MM-yyyy HH:mm:ss"), "modified lastname")
+            ContactData newData = new ContactData("Y5ESTRUTRI", "ZRZUTUTU6I")
             {
-                HomePhone = "modified number",
-                Middlename = "modified middlename"
+                HomePhone = "46S7RDUTUT",
+                Middlename = "XYSUX6DIYI"
             };
 
             int index = 0;
-
-            applicationManager.Navigator.GoToHomePage();
 
             if (applicationManager.Contacts.VerifyingContactExistence() == false)
             {
                 applicationManager.Contacts.CreateDefaultContact();
             }
 
-            List<ContactData> oldContacts = applicationManager.Contacts.GetContactList();
-            applicationManager.Contacts.Modify(index, newData);
-            List<ContactData> newContacts = applicationManager.Contacts.GetContactList();
-            oldContacts[index].Firstname = newData.Firstname;
-            oldContacts[index].Lastname = newData.Lastname;
+            List<ContactData> oldContacts = ContactData.GetAll();
+            ContactData toBeModified = oldContacts[index];
+
+            applicationManager.Contacts.Modify(toBeModified, newData);
+            List<ContactData> newContacts = ContactData.GetAll();
+            toBeModified.Firstname = newData.Firstname;
+            toBeModified.Lastname = newData.Lastname;
             oldContacts.Sort();
             newContacts.Sort();
             Assert.AreEqual(oldContacts, newContacts);

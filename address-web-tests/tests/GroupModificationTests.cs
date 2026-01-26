@@ -20,21 +20,21 @@ namespace WebAddressbookTests
             };
             int index = 0;
 
-            applicationManager.Navigator.GoToGroupsPage();
 
             if (applicationManager.Groups.VerifyingGroupExistence() == false)
             {
                 applicationManager.Groups.CreateDefaultGroup();
             }
 
-            List<GroupData> oldGroups = applicationManager.Groups.GetGroupList();
-            GroupData oldData = oldGroups[index];
+            List<GroupData> oldGroups = GroupData.GetAll();
+            GroupData toBeModified = oldGroups[index];
 
-            applicationManager.Groups.Modify(index, newData);
+            applicationManager.Groups.Modify(toBeModified, newData);
+
             Assert.AreEqual(oldGroups.Count,
                 applicationManager.Groups.GetGroupCount());
 
-            List<GroupData> newGroups = applicationManager.Groups.GetGroupList();
+            List<GroupData> newGroups = GroupData.GetAll();
             oldGroups[index].GroupName = newData.GroupName;
             oldGroups.Sort();
             newGroups.Sort();
@@ -42,7 +42,7 @@ namespace WebAddressbookTests
 
             foreach (GroupData group in newGroups)
             {
-                if (group.Id == oldData.Id)
+                if (group.Id == toBeModified.Id)
                 {
                     Assert.AreEqual(newData.GroupName, group.GroupName);
                 }
