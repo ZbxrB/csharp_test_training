@@ -221,5 +221,38 @@ namespace WebAddressbookTests
             manager.Contacts.GoToContactDetailsPage(index);
             return driver.FindElement(By.Id("content")).Text;
         }
+
+        public void AddContactToGroup(ContactData contact, GroupData group)
+        {
+            manager.Navigator.GoToHomePage();
+            ClearGroupFilter();
+            SelectContact(contact.Id);
+            SelectGroupToAdd(group.GroupName);
+            CommitAddingContactToGroup();
+
+            // ждем успешного завершения операции (открывается страница с сообщением)
+            new WebDriverWait(driver, TimeSpan.FromSeconds(10))
+                .Until(d => d.FindElements(By.CssSelector("div.msgbox")).Count > 0);
+
+        }
+
+        public void ClearGroupFilter()
+        {
+            new SelectElement(driver.FindElement(By.Name("group"))).SelectByText("[all]");
+        }
+        private void SelectContact(string id)
+        {
+            driver.FindElement(By.Id(id)).Click();
+        }
+
+        private void SelectGroupToAdd(string groupName)
+        {
+            new SelectElement(driver.FindElement(By.Name("to_group"))).SelectByText(groupName);
+        }
+
+        private void CommitAddingContactToGroup()
+        {
+            driver.FindElement(By.Name("add")).Click();
+        }
     }
 }

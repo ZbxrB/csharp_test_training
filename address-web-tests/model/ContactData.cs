@@ -80,6 +80,9 @@ namespace WebAddressbookTests
         public string Email3 { get; set; } = "";
         public string Homepage { get; set; } = "";
 
+        [Column(Name = "deprecated")]
+        public string Deprecated { get; set; }
+
         public string AllPhones
         {
             get
@@ -151,6 +154,14 @@ namespace WebAddressbookTests
             builder.Append(PrepareContactInformationString(infoString: Homepage.Replace("http://", ""), starting: "Homepage:", ending: ending));
 
             return builder.ToString().Trim();
+        }
+
+        public static List<ContactData> GetAll()
+        {
+            using (AddressBookDB db = new AddressBookDB())
+            {
+                return (from c in db.Contacts select c).ToList();
+            }
         }
     }
 }

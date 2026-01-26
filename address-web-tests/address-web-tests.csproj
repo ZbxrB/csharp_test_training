@@ -180,6 +180,7 @@
     <Compile Include="model\AddressBookDB.cs" />
     <Compile Include="model\ContactData.cs" />
     <Compile Include="model\GroupContactRelation.cs" />
+    <Compile Include="tests\AddingContactToGroupTests.cs" />
     <Compile Include="tests\AuthTestBase.cs" />
     <Compile Include="tests\ContactInformationTests.cs" />
     <Compile Include="tests\ContactModificationTests.cs" />
