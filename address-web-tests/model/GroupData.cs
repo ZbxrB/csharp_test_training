@@ -71,14 +71,6 @@ namespace WebAddressbookTests
 
         public static List<GroupData> GetAll()
         {
-            // код ниже требует явного закрытия соединения - db.Close();
-            //AddressBookDB db = new AddressBookDB();
-            //List<GroupData> fromDB = (from g in db.Groups select g).ToList();
-            //db.Close();     // закрываем соединение с БД в явном виде
-
-            // этот код не требует явного закрытия и короче (метод Close будет вызываться автоматически)
-            // это же работает с файлами - файл в конце закроется автоматически
-
             using (AddressBookDB db = new AddressBookDB())
             {
                 // в скобочках - язык Linq

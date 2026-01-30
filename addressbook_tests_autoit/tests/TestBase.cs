@@ -7,17 +7,18 @@ using NUnit.Framework;
 
 namespace addressbook_tests_autoit
 {
+
     public class TestBase
     {
         public ApplicationManager app;
 
-        [TestFixtureSetUp]
+        [OneTimeSetUp]
         public void InitApplication()
         {
             app = new ApplicationManager();
         }
 
-        [TestFixtureTearDown]
+        [OneTimeTearDown]
         public void StopApplication()
         {
             app.Stop();
