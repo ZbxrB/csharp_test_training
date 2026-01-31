@@ -12,19 +12,45 @@ namespace WebAddressbookTests
         [Test]
         public void TestAddingContactToGroup()
         {
-            GroupData group = GroupData.GetAll()[0];
-            List<ContactData> oldList = group.GetContacts();
-            ContactData contact = ContactData.GetAll().Except(oldList).First();
+            List<GroupData> groups = GroupData.GetAll();
+            List<ContactData> contacts = ContactData.GetAll();
 
-            applicationManager.Contacts.AddContactToGroup(contact, group);
+            if (groups.Count == 0)
+            {
+                applicationManager.Groups.CreateDefaultGroup();
+                groups = GroupData.GetAll();
+            }
 
-            List<ContactData> newList = group.GetContacts();
-            oldList.Add(contact);
+            if (contacts.Count == 0)
+            {
+                applicationManager.Contacts.CreateDefaultContact();
+                contacts = ContactData.GetAll();
+            }
+
+            ContactData contactForAdding;
+            GroupData groupForAdding = groups[0];
+            List<ContactData> oldList = groupForAdding.GetContacts();
+            
+
+            if (oldList.Count == contacts.Count)
+            {
+                contactForAdding = contacts[0];
+                applicationManager.Contacts.RemoveContactFromGroup(contactForAdding, groupForAdding);
+                oldList = groupForAdding.GetContacts();
+            }
+            else
+            {
+                contactForAdding = oldList[0];
+            }
+                       
+            applicationManager.Contacts.AddContactToGroup(contactForAdding, groupForAdding);
+
+            List<ContactData> newList = groupForAdding.GetContacts();
+            oldList.Add(contactForAdding);
 
             newList.Sort();
             oldList.Sort();
             Assert.AreEqual(oldList, newList);
-
         }
 
     }

@@ -41,18 +41,18 @@ namespace WebAddressbookTests
             */
 
             ContactData contactForRemoval;
-            GroupData groupForRemoval = groups[0];
-            List<ContactData> oldList = groups[0].GetContacts();
+            GroupData groupForRemoval = groups.First();
+            List<ContactData> oldList = groups.First().GetContacts();
             
             if (oldList.Count == 0)
             {
-                contactForRemoval = contacts[0];
+                contactForRemoval = contacts.First();
                 applicationManager.Contacts.AddContactToGroup(contactForRemoval, groupForRemoval);
-                oldList = GroupData.GetAll()[0].GetContacts();
+                oldList = GroupData.GetAll().First().GetContacts();
             }
             else
             {
-                contactForRemoval = oldList[0];
+                contactForRemoval = oldList.First();
             }
             
             // удаляем контакт из группы для удаления
