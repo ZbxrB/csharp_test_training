@@ -51,8 +51,6 @@ namespace WebAddressbookTests
 
             List<ContactData> oldContacts = ContactData.GetAll();
 
-            //List<ContactData> oldContacts = applicationManager.Contacts.GetContactList();
-
             applicationManager.Contacts.Create(contact);
 
             List<ContactData> newContacts = ContactData.GetAll();
