@@ -43,5 +43,11 @@ namespace WebAddressbookTests
                 return false;
             }
         }
+
+        public static string GetRandomNumber()
+        {
+            Random random = new Random();
+            return Convert.ToString(random.Next(100000000));
+        }
     }
 }

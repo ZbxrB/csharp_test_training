@@ -30,13 +30,19 @@ namespace WebAddressbookTests
             {
                 return false;
             }
+
             if(Object.ReferenceEquals(this, other))
             {
                 return true;
             }
 
-            return Firstname == other.Firstname
-                                    && Lastname == other.Lastname; 
+            if (Id is null)
+            {
+                return Firstname == other.Firstname
+                        && Lastname == other.Lastname;
+            }
+
+            return Id == other.Id;
         }
 
         public override int GetHashCode()
@@ -55,7 +61,13 @@ namespace WebAddressbookTests
             {
                 return 1;
             }
-            return (Firstname + Lastname).CompareTo(other.Firstname + other.Lastname);
+
+            if (Id is null)
+            {
+                return (Firstname + Lastname).CompareTo(other.Firstname + other.Lastname);
+            }
+
+            return Id.CompareTo(other.Id);
         }
 
         [Column(Name = "id"), PrimaryKey]

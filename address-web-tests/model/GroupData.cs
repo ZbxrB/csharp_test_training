@@ -30,7 +30,12 @@ namespace WebAddressbookTests
                 return true;
             }
 
-            return GroupName == other.GroupName;
+            if (Id is null)
+            {
+                return GroupName == other.GroupName;
+            }
+
+            return Id == other.Id;
         }
 
         public override int GetHashCode()
@@ -51,7 +56,13 @@ namespace WebAddressbookTests
             {
                 return 1;
             }
-            return GroupName.CompareTo(other.GroupName);
+
+            if (Id is null)
+            {
+                return GroupName.CompareTo(other.GroupName);
+            }
+
+            return Id.CompareTo(other.Id);
         }
 
         // по-хорошему в [] нужно написать и ограничения, но так как мы только читаме БД, этого не требуетсяя

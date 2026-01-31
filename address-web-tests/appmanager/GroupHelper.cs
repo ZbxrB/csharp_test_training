@@ -20,6 +20,7 @@ namespace WebAddressbookTests
 
         public GroupHelper Create(GroupData group)
         {
+            manager.Navigator.GoToGroupsPage();
             InitGroupCreation();
             FillGroupForm(group);
             SubmitGroupCreation();
@@ -63,7 +64,7 @@ namespace WebAddressbookTests
 
         public GroupHelper CreateDefaultGroup()
         {
-            GroupData defaultGroup = new GroupData("default group name");
+            GroupData defaultGroup = new GroupData($"default group name {GetRandomNumber()}");
             Create(defaultGroup);
 
             return this;

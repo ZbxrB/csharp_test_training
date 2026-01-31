@@ -13,36 +13,14 @@ namespace WebAddressbookTests
         public void TestAddingContactToGroup()
         {
             List<GroupData> groups = GroupData.GetAll();
-            List<ContactData> contacts = ContactData.GetAll();
-
-            if (groups.Count == 0)
-            {
-                applicationManager.Groups.CreateDefaultGroup();
-                groups = GroupData.GetAll();
-            }
-
-            if (contacts.Count == 0)
-            {
-                applicationManager.Contacts.CreateDefaultContact();
-                contacts = ContactData.GetAll();
-            }
-
-            ContactData contactForAdding;
-            GroupData groupForAdding = groups[0];
+            applicationManager.Groups.CreateDefaultGroup();
+            GroupData groupForAdding = GroupData.GetAll().Except(groups).ToList()[0];
             List<ContactData> oldList = groupForAdding.GetContacts();
-            
 
-            if (oldList.Count == contacts.Count)
-            {
-                contactForAdding = contacts[0];
-                applicationManager.Contacts.RemoveContactFromGroup(contactForAdding, groupForAdding);
-                oldList = groupForAdding.GetContacts();
-            }
-            else
-            {
-                contactForAdding = oldList[0];
-            }
-                       
+            List<ContactData> contacts = ContactData.GetAll();
+            applicationManager.Contacts.CreateDefaultContact();
+            ContactData contactForAdding = ContactData.GetAll().Except(contacts).ToList()[0];
+
             applicationManager.Contacts.AddContactToGroup(contactForAdding, groupForAdding);
 
             List<ContactData> newList = groupForAdding.GetContacts();

@@ -11,60 +11,22 @@ namespace WebAddressbookTests
     {
         [Test]
         public void TestRemovalContactFromGroup()
-        {   
+        {
             List<GroupData> groups = GroupData.GetAll();
+            applicationManager.Groups.CreateDefaultGroup();
+            GroupData groupForRemoval = GroupData.GetAll().Except(groups).ToList()[0];
+
             List<ContactData> contacts = ContactData.GetAll();
-            /*
-            проверяем, что существует хотя бы одна группа,
-            если не существует, то создаем группу по-умолчанию
-            */
-            if (groups.Count == 0)
-            {
-                applicationManager.Groups.CreateDefaultGroup();
-                groups = GroupData.GetAll();
-            }
+            applicationManager.Contacts.CreateDefaultContact();
+            ContactData contactForRemoval = ContactData.GetAll().Except(contacts).ToList()[0];
 
-            /*
-            проверяем, что существует хотя бы один контакт,
-            если не существует, то создаем контакт по-умолчанию
-            */
-            if (contacts.Count == 0)
-            {
-                applicationManager.Contacts.CreateDefaultContact();
-                contacts = ContactData.GetAll();
-            }
+            applicationManager.Contacts.AddContactToGroup(contactForRemoval, groupForRemoval);
+            List<ContactData> oldList = groupForRemoval.GetContacts();
 
-            /*
-            проверяем, содержит ли первая в списке группа хоть один контакт,
-            если не содержит, то добавляем в эту групп первый в списке контакт из обещго списка контактов,
-            если содержит, то сохраняем его в переменную для последующего удаления
-            */
-
-            ContactData contactForRemoval;
-            GroupData groupForRemoval = groups.First();
-            List<ContactData> oldList = groups.First().GetContacts();
-            
-            if (oldList.Count == 0)
-            {
-                contactForRemoval = contacts.First();
-                applicationManager.Contacts.AddContactToGroup(contactForRemoval, groupForRemoval);
-                oldList = GroupData.GetAll().First().GetContacts();
-            }
-            else
-            {
-                contactForRemoval = oldList.First();
-            }
-            
-            // удаляем контакт из группы для удаления
             applicationManager.Contacts.RemoveContactFromGroup(contactForRemoval, groupForRemoval);
 
-            // получаем список контактов из группы для удаления
             List<ContactData> newList = groupForRemoval.GetContacts();
-
-            // удаляем контакт для удаления из списка контактов до момента удаления
             oldList.Remove(contactForRemoval);
-
-            // сортируем и сравниваем списки
             newList.Sort();
             oldList.Sort();
             Assert.AreEqual(oldList, newList);

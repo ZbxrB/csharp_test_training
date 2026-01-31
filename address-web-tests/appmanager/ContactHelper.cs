@@ -60,8 +60,8 @@ namespace WebAddressbookTests
 
         public ContactHelper CreateDefaultContact()
         {
-
-            ContactData defaultContact = new ContactData("default firstname", "default lastname");
+            string random = GetRandomNumber();
+            ContactData defaultContact = new ContactData($"default firstname {random}", $"default lastname {random}");
             Create(defaultContact);
             contactCache = null;
 
