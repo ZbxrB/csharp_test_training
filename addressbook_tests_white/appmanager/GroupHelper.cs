@@ -14,6 +14,8 @@ namespace addressbook_tests_white
     public class GroupHelper : HelperBase
     {
         public static string GROUPWINTITLE = "Group editor";
+        public static string GROUPDELETEWINTITLE = "Delete group";
+
         public GroupHelper(ApplicationManager manager) : base(manager) { }
 
         public Window OpenGroupsDialog()
@@ -44,6 +46,19 @@ namespace addressbook_tests_white
             CloseGroupsDialog(dialogue);
         }
 
+        public void Remove(int index)
+        {
+            Window dialogue = OpenGroupsDialog();
+            Tree tree = dialogue.Get<Tree>("uxAddressTreeView");
+            TreeNode root = tree.Nodes[0];
+            TreeNode first = root.Nodes[index];
+            first.Select();
+            dialogue.Get<Button>("uxDeleteAddressButton").Click();
+            Window deleteWin = manager.MainWindow.ModalWindow(GROUPWINTITLE);
+            deleteWin.Get<Button>("uxOKAddressButton").Click();
+            CloseGroupsDialog(dialogue);
+        }
+
         public List<GroupData> GetGroupList()
         {
             List<GroupData> list = new List<GroupData>();
@@ -64,5 +79,14 @@ namespace addressbook_tests_white
 
             return list;
         }
+
+        public void CreateDefaultGroup()
+        {           
+            GroupData defaultGroup = new GroupData() { Name = "Default name" };
+
+            Add(defaultGroup);
+        }
+
+
     }
 }
