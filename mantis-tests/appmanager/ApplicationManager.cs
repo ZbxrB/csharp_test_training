@@ -1,26 +1,28 @@
 ﻿using NUnit.Framework;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Firefox;
+using OpenQA.Selenium.Internal;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 using System.Threading;
+using System.Threading.Tasks;
+using static System.Net.WebRequestMethods;
 
 namespace mantis_tests
 {
     public class ApplicationManager
     {
         protected IWebDriver driver;
-        protected string baseURL;
+        public string baseURL;
 
         private static ThreadLocal<ApplicationManager> applicationManager = new ThreadLocal<ApplicationManager>();
 
         private ApplicationManager()
         {
             driver = new FirefoxDriver();
-            baseURL = "http://localhost:8080/addressbook";
+            baseURL = "http://localhost:8443/mantisbt";
             Registration = new RegistrationHelper(this);
             Ftp = new FtpHelper(this);
         }
@@ -42,7 +44,7 @@ namespace mantis_tests
             if (! applicationManager.IsValueCreated)
             {
                 ApplicationManager newInstance = new ApplicationManager();
-                newInstance.driver.Url = "http;//localhost/mantisbt-1.2.17/login_page.php";
+                newInstance.driver.Url = "http://localhost:8443/mantisbt/login_page.php";
                 applicationManager.Value = newInstance;
             }
             return applicationManager.Value;

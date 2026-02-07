@@ -13,7 +13,8 @@ namespace mantis_tests
         [OneTimeSetUp] // уточнить
         public void SetUpConfig()
         {
-            applicationManager.Ftp.BackUpFile("");
+            applicationManager.Ftp.BackUpFile("/config_inc.php");
+
             using (Stream localFile = File.Open("config_inc.php", FileMode.Open))
             {
                 applicationManager.Ftp.Upload("/config_inc.php", localFile);
@@ -38,7 +39,7 @@ namespace mantis_tests
         [OneTimeTearDown] // уточнить
         public void RestoreConfig()
         {
-            applicationManager.Ftp.RestoreBackUpFile("");
+            applicationManager.Ftp.RestoreBackUpFile("/config_inc.php");
         }
 
 

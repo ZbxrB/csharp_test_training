@@ -21,17 +21,16 @@ namespace mantis_tests
             OpenRegistrationForm();
             FillRegistrationForm(account);
             SubmitRegistration();
-
         }
 
         private void OpenRegistrationForm()
         {
-            driver.FindElements(By.CssSelector("span.bracket-link"))[0].Click();
+            driver.FindElement(By.CssSelector("a.back-to-login-link")).Click();
         }
 
         private void SubmitRegistration()
         {
-            throw new NotImplementedException();
+            driver.FindElement(By.CssSelector("input[type='submit'][value='Зарегистрироваться']")).Click();
         }
 
         private void FillRegistrationForm(AccountData account)
@@ -42,7 +41,7 @@ namespace mantis_tests
 
         private void OpenMainPage()
         {
-            manager.Driver.Url = "http;//localhost/mantisbt-1.2.17/login_page.php";
+            manager.Driver.Url = "http://localhost:8443/mantisbt/login_page.php";
         }
     }
 }
