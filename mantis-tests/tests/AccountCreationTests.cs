@@ -32,8 +32,10 @@ namespace mantis_tests
                 Email = "testuser@localhost.localdomain"
             };
 
-            applicationManager.Registration.Register(account);
+            applicationManager.James.Delete(account);
+            applicationManager.James.Add(account);
 
+            applicationManager.Registration.Register(account);
         }
 
         [OneTimeTearDown] // уточнить

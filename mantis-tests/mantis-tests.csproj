@@ -145,7 +145,9 @@
     <Compile Include="appmanager\ApplicationManager.cs" />
     <Compile Include="appmanager\FtpHelper.cs" />
     <Compile Include="appmanager\HelperBase.cs" />
+    <Compile Include="appmanager\JamesHelper.cs" />
     <Compile Include="appmanager\RegistrationHelper.cs" />
+    <Compile Include="appmanager\TelnetInterface.cs" />
     <Compile Include="model\AccountData.cs" />
     <Compile Include="tests\AccountCreationTests.cs" />
     <Compile Include="tests\TestBase.cs" />
