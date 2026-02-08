@@ -49,5 +49,11 @@ namespace mantis_tests
             Random random = new Random();
             return Convert.ToString(random.Next(100000000));
         }
+
+        public IWebElement Wait(int timeout, By by)
+        {
+            WebDriverWait wait = new WebDriverWait(driver, TimeSpan.FromSeconds(timeout));
+            return wait.Until(d => d.FindElement(by));
+        }
     }
 }

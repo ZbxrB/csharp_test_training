@@ -21,21 +21,19 @@ namespace mantis_tests
 
             ProjectData project = new ProjectData()
             {
-                Name = "test_project",
+                Name = "test_project1112711579771",
             };
 
-            List<ProjectData> before = applicationManager.ProjectManagment.GetProjectList(); // ProjectManagmentHelper
+            applicationManager.Login.LoginUser(admin);
 
-            applicationManager.Login.LoginUser(admin); // LoginHelper
-            applicationManager.Navigator.GoToManagementPage(); // NavigationHelper
-            applicationManager.Navigator.GoToProjectManagementPage(); // NavigationHelper
-            applicationManager.ProjectManagment.CreateNewProject(project); // ProjectManagmentHelper
-
-            List<ProjectData> after = applicationManager.ProjectManagment.GetProjectList(); // ProjectManagmentHelper
+            applicationManager.Navigator.GoToManagementPage();
+            applicationManager.Navigator.GoToProjectManagementPage();
+            List<ProjectData> before = applicationManager.ProjectManager.GetProjectList();
+            applicationManager.ProjectManager.CreateNewProject(project);
+            
+            List<ProjectData> after = applicationManager.ProjectManager.GetProjectList();
 
             Assert.AreEqual(before.Count + 1, after.Count);
-
         }
-
     }
 }

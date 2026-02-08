@@ -11,10 +11,7 @@ namespace mantis_tests
 {
     public class RegistrationHelper : HelperBase
     {
-        public RegistrationHelper(ApplicationManager manager) : base(manager)
-        {
-
-        }
+        public RegistrationHelper(ApplicationManager manager) : base(manager) { }
 
         public void Register(AccountData account)
         {

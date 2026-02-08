@@ -28,15 +28,14 @@ namespace mantis_tests
             Type(By.Name("password"), account.Password);
             driver.FindElement(By.CssSelector("input[type='submit']")).Click();
 
-            new WebDriverWait(driver, TimeSpan.FromSeconds(10))
-                .Until(d => d.FindElement(By.ClassName("user-info")).Text == account.Name);
+            Wait(10, By.CssSelector("input[type='submit'][value='Изменить учетную запись']"));
         }
 
         private void Logout()
         {
             if (IsLoggedIn())
             {
-                тут как-то найти кнопку
+                driver.FindElement(By.CssSelector("a[href='/mantisbt/logout_page.php']")).Click();
             }
         }
 
