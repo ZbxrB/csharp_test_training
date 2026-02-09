@@ -45,6 +45,20 @@ namespace mantis_tests
             Wait(10, By.CssSelector("input[type='submit'][value='создать новый проект']"));
         }
 
+        public void RemoveProject(ProjectData projectData)
+        {
+            driver.Url = projectData.Link;
+            SubmitProjectRemoval();
+            SubmitProjectRemoval();
+
+            Wait(10, By.CssSelector("input[type='submit'][value='создать новый проект']"));
+        }
+
+        private void SubmitProjectRemoval()
+        {
+            driver.FindElement(By.CssSelector("input[type='submit'][value='Удалить проект']")).Click();
+        }
+
         public void SubmitProjectCreation()
         {
             driver.FindElement(By.CssSelector("input[type='submit'][value='Добавить проект']")).Click();
@@ -54,5 +68,7 @@ namespace mantis_tests
         {
             driver.FindElement(By.CssSelector("input[id='project-name'][name='name']")).SendKeys(project.Name);
         }
+
+
     }
 }

@@ -167,6 +167,7 @@
     <Compile Include="tests\AccountCreationTests.cs" />
     <Compile Include="tests\CloseAppWindowAfterTests.cs" />
     <Compile Include="tests\ProjectCreationTests.cs" />
+    <Compile Include="tests\ProjectRemovalTests.cs" />
     <Compile Include="tests\TestBase.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

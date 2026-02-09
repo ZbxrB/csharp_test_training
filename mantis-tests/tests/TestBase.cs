@@ -31,5 +31,11 @@ namespace mantis_tests
             }
             return builder.ToString();
         }
+
+        public static string GetRandomNumber()
+        {
+            Random random = new Random();
+            return Convert.ToString(random.Next(1000000000));
+        }
     }
 }
