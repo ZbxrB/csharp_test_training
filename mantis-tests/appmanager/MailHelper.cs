@@ -32,7 +32,6 @@ namespace mantis_tests
                 {
                     System.Threading.Thread.Sleep(3000);
                 }
-
             }
             return null;
         }

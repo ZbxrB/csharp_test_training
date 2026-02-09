@@ -152,6 +152,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="appmanager\APIHelper.cs" />
     <Compile Include="appmanager\AdminHelper.cs" />
     <Compile Include="appmanager\ApplicationManager.cs" />
     <Compile Include="appmanager\FtpHelper.cs" />
@@ -164,8 +165,10 @@
     <Compile Include="appmanager\RegistrationHelper.cs" />
     <Compile Include="appmanager\TelnetInterface.cs" />
     <Compile Include="model\AccountData.cs" />
+    <Compile Include="model\IssueData.cs" />
     <Compile Include="model\ProjectData.cs" />
     <Compile Include="tests\AccountCreationTests.cs" />
+    <Compile Include="tests\AddNewIssueTests.cs" />
     <Compile Include="tests\CloseAppWindowAfterTests.cs" />
     <Compile Include="tests\ProjectCreationTests.cs" />
     <Compile Include="tests\ProjectRemovalTests.cs" />
