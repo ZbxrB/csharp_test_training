@@ -32,6 +32,14 @@ namespace mantis_tests
                 Email = "user3@localhost.localdomain"
             };
 
+            List<AccountData> accounts = applicationManager.Admin.GetAllAccounts();
+            AccountData existingAccount = accounts.Find(x => x.Name == account.Name);
+
+            if (existingAccount != null)
+            {
+                applicationManager.Admin.DeleteAccount(existingAccount);
+            }
+
             applicationManager.James.Delete(account);
             applicationManager.James.Add(account);
 

@@ -15,14 +15,14 @@ namespace mantis_tests
     public class ApplicationManager
     {
         protected IWebDriver driver;
-        public string baseURL;
+        public string baseUrl;
 
         private static ThreadLocal<ApplicationManager> applicationManager = new ThreadLocal<ApplicationManager>();
 
         private ApplicationManager()
         {
             driver = new FirefoxDriver();
-            baseURL = "http://localhost:8443/mantisbt";
+            baseUrl = "http://localhost:8443/mantisbt";
             Registration = new RegistrationHelper(this);
             Ftp = new FtpHelper(this);
             James = new JamesHelper(this);
@@ -30,6 +30,7 @@ namespace mantis_tests
             Login = new LoginHelper(this);
             Navigator = new NavigationHelper(this);
             ProjectManager = new ProjectManagmentHelper(this);
+            Admin = new AdminHelper(this, baseUrl);
         }
 
         ~ApplicationManager()
@@ -49,7 +50,7 @@ namespace mantis_tests
             if (! applicationManager.IsValueCreated)
             {
                 ApplicationManager newInstance = new ApplicationManager();
-                newInstance.driver.Url = "http://localhost:8443/mantisbt/login_page.php";
+                newInstance.driver.Url = newInstance.baseUrl + "/login_page.php";
                 applicationManager.Value = newInstance;
             }
             return applicationManager.Value;
@@ -70,5 +71,6 @@ namespace mantis_tests
         public LoginHelper Login { get; set; }
         public NavigationHelper Navigator { get; set; }
         public ProjectManagmentHelper ProjectManager { get; set; }
+        public AdminHelper Admin { get; set; }
     }
 }
