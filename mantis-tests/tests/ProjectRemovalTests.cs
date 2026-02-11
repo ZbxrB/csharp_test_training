@@ -13,32 +13,21 @@ namespace mantis_tests
         [Test]
         public void ProjectRemovalTest()
         {
-            AccountData admin = new AccountData()
-            {
-                Name = "administrator",
-                Password = "root"
-            };
-
-            ProjectData project = new ProjectData()
-            {
-                Name = $"test project {GetRandomNumber()}"
-            };
-
-            applicationManager.Login.LoginUser(admin);
-            applicationManager.Navigator.GoToManagementPage();
-            applicationManager.Navigator.GoToProjectManagementPage();
-
-            List<ProjectData> before = applicationManager.ProjectManager.GetProjectList();
+            List<ProjectData> before = applicationManager.API.GetProjectListByAPI();
 
             if (before.Count == 0)
             {
-                applicationManager.ProjectManager.CreateNewProject(project);
-                before = applicationManager.ProjectManager.GetProjectList();
+                applicationManager.API.CreateProjectByAPI(new ProjectData()
+                {
+                    Name = $"test_project_{GetRandomNumber()}"
+                });
+
+                before = applicationManager.API.GetProjectListByAPI();
             }
 
             applicationManager.ProjectManager.RemoveProject(before[0]);
              
-            List<ProjectData> after = applicationManager.ProjectManager.GetProjectList();
+            List<ProjectData> after = applicationManager.API.GetProjectListByAPI();
 
             Assert.AreEqual(before.Count - 1, after.Count);
         }

@@ -31,7 +31,7 @@ namespace mantis_tests
             Mail = new MailHelper(this);
             Login = new LoginHelper(this);
             Navigator = new NavigationHelper(this);
-            ProjectManager = new ProjectManagmentHelper(this);
+            ProjectManager = new ProjectManagmentHelper(this, baseUrl);
             Admin = new AdminHelper(this, baseUrl);
             API = new APIHelper(this);
 

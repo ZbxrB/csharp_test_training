@@ -13,25 +13,16 @@ namespace mantis_tests
         [Test]
         public void ProjectCreationTest()
         {
-            AccountData admin = new AccountData()
-            {
-                Name = "administrator",
-                Password = "root"
-            };
-
             ProjectData project = new ProjectData()
             {
-                Name = "test_project1112711579771",
+                Name = $"test_project_{GetRandomNumber()}",
             };
 
-            applicationManager.Login.LoginUser(admin);
+            List<ProjectData> before = applicationManager.API.GetProjectListByAPI();
 
-            applicationManager.Navigator.GoToManagementPage();
-            applicationManager.Navigator.GoToProjectManagementPage();
-            List<ProjectData> before = applicationManager.ProjectManager.GetProjectList();
             applicationManager.ProjectManager.CreateNewProject(project);
             
-            List<ProjectData> after = applicationManager.ProjectManager.GetProjectList();
+            List<ProjectData> after = applicationManager.API.GetProjectListByAPI();
 
             Assert.AreEqual(before.Count + 1, after.Count);
         }

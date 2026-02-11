@@ -51,13 +51,13 @@ namespace mantis_tests
             driver.FindElement(By.CssSelector("input[value='Удалить аккаунт']")).Click(); // проверить правильность локатора
         }
 
-        private IWebDriver OpenAppAndLogin()
+        public IWebDriver OpenAppAndLogin()
         {
             IWebDriver driver = new SimpleBrowserDriver();
 
             driver.Url = baseUrl + "/login_page.php";
-            driver.FindElement(By.Name("username")).SendKeys("administrator");
-            driver.FindElement(By.Name("password")).SendKeys("root");
+            driver.FindElement(By.Name("username")).SendKeys(adminUsername);
+            driver.FindElement(By.Name("password")).SendKeys(adminPassword);
             driver.FindElement(By.CssSelector("input[type='submit']")).Click();
             return driver;
         }

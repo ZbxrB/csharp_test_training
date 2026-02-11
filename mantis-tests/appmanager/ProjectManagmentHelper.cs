@@ -10,12 +10,18 @@ namespace mantis_tests
 {
     public class ProjectManagmentHelper : HelperBase
     {
-        public ProjectManagmentHelper(ApplicationManager manager) : base(manager) { }
+        private string baseUrl;
 
-        public List<ProjectData> GetProjectList()
+        public ProjectManagmentHelper(ApplicationManager manager, string baseUrl) : base(manager)
+        {
+            this.baseUrl = baseUrl;
+        }
+
+        public List<ProjectData> GetProjectListFromPage()
         {
             List<ProjectData> projects = new List<ProjectData>();
-
+            IWebDriver driver = manager.Admin.OpenAppAndLogin();
+            driver.Url = baseUrl + "/manage_proj_page.php";
             ICollection<IWebElement> elements = driver.FindElements(By.XPath("//a[starts-with(@href, 'manage_proj_edit_page.php?project_id=')]"));
 
             Regex regex = new Regex(@"project_id=(\d+)", RegexOptions.Compiled);
@@ -38,20 +44,22 @@ namespace mantis_tests
 
         public void CreateNewProject(ProjectData project)
         {
+            IWebDriver driver = manager.Admin.OpenAppAndLogin();
+            driver.Url = baseUrl + "/manage_proj_page.php";
             driver.FindElement(By.CssSelector("input[type='submit'][value='создать новый проект']")).Click();
-            FillProjectForm(project);
-            SubmitProjectCreation();
+            driver.FindElement(By.CssSelector("input[id='project-name'][name='name']")).SendKeys(project.Name);
+            driver.FindElement(By.CssSelector("input[type='submit'][value='Добавить проект']")).Click();
 
-            Wait(10, By.CssSelector("input[type='submit'][value='создать новый проект']"));
+            //Wait(10, By.CssSelector("input[type='submit'][value='создать новый проект']"));
         }
 
         public void RemoveProject(ProjectData projectData)
         {
+            IWebDriver driver = manager.Admin.OpenAppAndLogin();
             driver.Url = projectData.Link;
-            SubmitProjectRemoval();
-            SubmitProjectRemoval();
-
-            Wait(10, By.CssSelector("input[type='submit'][value='создать новый проект']"));
+            driver.FindElement(By.CssSelector("input[type='submit'][value='Удалить проект']")).Click();
+            driver.FindElement(By.CssSelector("input[type='submit'][value='Удалить проект']")).Click();
+            //Wait(10, By.CssSelector("input[type='submit'][value='создать новый проект']"));
         }
 
         private void SubmitProjectRemoval()

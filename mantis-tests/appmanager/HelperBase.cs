@@ -14,6 +14,8 @@ namespace mantis_tests
     {
         protected ApplicationManager manager;
         protected IWebDriver driver;
+        public static string adminUsername = "administrator";
+        public static string adminPassword = "root";
 
         public HelperBase(ApplicationManager manager)
         {
