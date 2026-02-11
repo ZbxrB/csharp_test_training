@@ -27,9 +27,9 @@ namespace mantis_tests
         {
             AccountData account = new AccountData()
             {
-                Name = "user3",
+                Name = "user367",
                 Password = "password",
-                Email = "user3@localhost.localdomain"
+                Email = "user367@localhost.localdomain"
             };
 
             List<AccountData> accounts = applicationManager.Admin.GetAllAccounts();

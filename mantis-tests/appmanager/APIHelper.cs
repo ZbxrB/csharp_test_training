@@ -13,11 +13,11 @@ namespace mantis_tests
 
         internal void CreateNewIssue(AccountData account, IssueData issueData, ProjectData project)
         {
-            mantis_tests.MantisConnectPortTypeClient client = new Mantis.MantisConnectPortTypeClient();
-            Mantis.IssueData = new Mantis.IssueData();
+            Mantis.MantisConnectPortTypeClient client = new Mantis.MantisConnectPortTypeClient();
+            Mantis.IssueData issue = new Mantis.IssueData();
             issue.summary = issueData.Summary;
-            issue.Description = issueData.Description;
-            issue.Category = issueData.Category;
+            issue.description = issueData.Description;
+            issue.category = issueData.Category;
             issue.project = new Mantis.ObjectRef();
             issue.project.id = project.Id;
             client.mc_issue_add(account.Name, account.Password, issue);

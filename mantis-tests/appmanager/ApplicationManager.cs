@@ -8,7 +8,6 @@ using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
-using static System.Net.WebRequestMethods;
 
 namespace mantis_tests
 {
@@ -21,7 +20,10 @@ namespace mantis_tests
 
         private ApplicationManager()
         {
-            driver = new FirefoxDriver();
+            FirefoxOptions options = new FirefoxOptions();
+            options.BrowserExecutableLocation = @"C:\Program Files\Mozilla Firefox\firefox.exe";
+
+            driver = new FirefoxDriver(options);
             baseUrl = "http://localhost:8443/mantisbt";
             Registration = new RegistrationHelper(this);
             Ftp = new FtpHelper(this);
